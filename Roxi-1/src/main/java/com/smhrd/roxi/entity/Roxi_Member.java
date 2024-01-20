@@ -38,10 +38,7 @@ public class Roxi_Member {
 	
 	// 연락처
 	@Column
-	private int tell;
-	
-	
-	
+	private String tell;
 	
 
 }

@@ -1,0 +1,41 @@
+package com.smhrd.roxi.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Roxi_comment {
+
+	// 코멘트 번호
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // Auto_increment
+	private int commentnum;
+	// 환자 번호
+
+	@JoinColumn(name="patinum", referencedColumnName = "patinum")
+	@ManyToOne
+	private Roxi_Patient patinum;
+	// 의사사번
+
+	@JoinColumn(name="membernum", referencedColumnName = "membernum")
+	@ManyToOne
+	private Roxi_Member membernum;
+	// 입력시간
+	@Column
+	private String inputdate;
+	// 내용
+	@Column
+	private String contents;
+}

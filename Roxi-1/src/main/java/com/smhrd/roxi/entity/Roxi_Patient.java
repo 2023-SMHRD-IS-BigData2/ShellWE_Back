@@ -22,7 +22,6 @@ public class Roxi_Patient {
 
 	// 환자번호
 	@Id
-	@OneToMany
 	@GeneratedValue(strategy = GenerationType.IDENTITY)// Auto_increment
 	private int patinum;
 	// 환자이름병동
@@ -52,7 +51,7 @@ public class Roxi_Patient {
 	
 	// 환자의 주치의
 	@ManyToOne
-	@JoinColumn(referencedColumnName = "membernum")
+	@JoinColumn(name = "physician_membernum", referencedColumnName = "membernum")
 	private Roxi_Member physician;
 	
 	// FK를 사용하는 경우 toString 메소드를 직접 Override 할것.

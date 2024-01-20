@@ -16,7 +16,7 @@ public class Roxi_Sepsiss {
 	
 	// 환자번호
 	@ManyToOne
-	@JoinColumn(referencedColumnName = "painnum")
+	@JoinColumn(name = "sepsnum", referencedColumnName = "patinum")
 	private Roxi_Patient sepsnum;
 	// 패혈증 수치
 	@Column
