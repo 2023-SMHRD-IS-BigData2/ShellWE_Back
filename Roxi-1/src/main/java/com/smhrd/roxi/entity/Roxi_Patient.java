@@ -11,18 +11,20 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 public class Roxi_Patient {
 
 	// 환자번호
 	@Id
 	@OneToMany
 	@GeneratedValue(strategy = GenerationType.IDENTITY)// Auto_increment
-	private String patinum;
+	private int patinum;
 	// 환자이름병동
 	@Column
 	private String name;
@@ -46,8 +48,7 @@ public class Roxi_Patient {
 	private String sepsisslevel;
 	
 	// 패혈증 수치
-	
-	private String sepsisscore;
+	private int sepsisscore;
 	
 	// 환자의 주치의
 	@ManyToOne
