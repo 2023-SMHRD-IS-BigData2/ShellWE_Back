@@ -24,14 +24,16 @@ public class Roxi_comment {
 	private int commentnum;
 	// 환자 번호
 
-	@JoinColumn(name="patinum", referencedColumnName = "patinum")
-	@ManyToOne
-	private Roxi_Patient patinum;
+	//@JoinColumn(name="patinum", referencedColumnName = "patinum")
+	//@ManyToOne
+	@Column
+	private int patinum;
 	// 의사사번
 
-	@JoinColumn(name="membernum", referencedColumnName = "membernum")
-	@ManyToOne
-	private Roxi_Member membernum;
+	//@JoinColumn(name="membernum", referencedColumnName = "membernum")
+	//@ManyToOne
+	@Column
+	private int membernum;
 	// 입력시간
 	@Column
 	private String inputdate;
