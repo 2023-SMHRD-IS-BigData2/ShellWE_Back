@@ -14,10 +14,13 @@ import lombok.Data;
 @Data
 public class Roxi_Sepsiss {
 	
+	// 패혈증 수치 입력 번호
+	
+	private int sepsissnum;
 	// 환자번호
 	@ManyToOne
-	@JoinColumn(name = "sepsnum", referencedColumnName = "patinum")
-	private Roxi_Patient sepsnum;
+	@JoinColumn(name = "patinum", referencedColumnName = "patinum")
+	private Roxi_Patient patinum;
 	// 패혈증 수치
 	@Column
 	private String sepsisscore;
