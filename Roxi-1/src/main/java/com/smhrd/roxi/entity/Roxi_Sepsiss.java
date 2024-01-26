@@ -8,19 +8,28 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.springframework.data.annotation.Persistent;
+
 import lombok.Data;
 
 @Entity
 @Data
+@Persistent
 public class Roxi_Sepsiss {
 	
+	//바이탈 넘버
+	@Id
+	@Column
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int num;
+	
 	// 환자번호
-	@ManyToOne
-	@JoinColumn(name = "sepsnum", referencedColumnName = "patinum")
-	private Roxi_Patient sepsnum;
+	@Column
+	private int patientnum;
 	// 패혈증 수치
 	@Column
 	private String sepsisscore;
+	
 	// 검사 일시 default값 지정
 	@Column(columnDefinition = "datetime default now()", insertable = false, updatable = false)
 	private String sepdate;
