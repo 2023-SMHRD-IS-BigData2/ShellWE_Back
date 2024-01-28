@@ -33,6 +33,10 @@
 <br>
 <hr>
 <h3>환자 목록</h3>
+<a href="/boot/dengerList">위험환자만 출력</a>
+<br>
+<a href="/boot/">전체환자 출력</a>
+
 <table border="1">
 	<tr>
 	    <th>num</th>

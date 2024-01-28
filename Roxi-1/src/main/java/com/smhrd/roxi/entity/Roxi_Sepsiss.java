@@ -1,5 +1,8 @@
 package com.smhrd.roxi.entity;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,7 +35,7 @@ public class Roxi_Sepsiss {
 	
 	// 검사 일시 default값 지정
 	@Column(columnDefinition = "datetime default now()", insertable = false, updatable = false)
-	private String sepdate;
+	private Date sepdate;
 	// 산소포화도
 	@Column
 	private String spo2;
