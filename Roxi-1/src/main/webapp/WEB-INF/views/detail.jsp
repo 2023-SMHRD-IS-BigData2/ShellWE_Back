@@ -66,12 +66,23 @@
 	<br>
 	temp : <input name="temp" type="text">
 	<br>
-	<input type="hidden" name="patientnum" value="<%=p.getPatinum()%>">
+	<input type="hidden" name="patientnum" value="${patient.patinum}">
 	<input type="submit" value="입력">
 </form>
 
 
 <hr>
+<br>
+날짜 선택
+
+<form action="/boot/selectDate">
+	<input name="date" type="date">
+	<input type="hidden" name="patinum" value="${patient.patinum}">
+	<input type="submit" value="선택">
+</form>
+<br>
+<br>
+
 <table border="1">
 	<tr>
 		<th>dbp</th>
