@@ -46,7 +46,6 @@ public class PatientController {
 	
 	@GetMapping("/detail")
 	public String detail(Model model, String patinum) {
-		System.out.println(patinum);
 		Optional<Roxi_Patient> patient = repo.findById(Integer.parseInt(patinum));
 		List<Roxi_Sepsiss> list = srepo.findBypatientnum(Integer.parseInt(patinum));
 		model.addAttribute("patient",patient.get());
@@ -85,6 +84,20 @@ public class PatientController {
 		model.addAttribute("list", list);
 		return "detail";
 		
+	}
+	
+	@RequestMapping("/searchPatient")
+	public String searchPatient(Model model, String search) {
+		List<Roxi_Patient> list = repo.findByname(search);
+		model.addAttribute("list", list);
+		return "main";
+	}
+	
+	@RequestMapping("/searchWard")
+	public String searchWard(Model model, String searchWard) {
+		List<Roxi_Patient> list = repo.findByward(searchWard);
+		model.addAttribute("list",list);
+		return "main";
 	}
 	
 }

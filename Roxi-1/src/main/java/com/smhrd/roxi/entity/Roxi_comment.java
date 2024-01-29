@@ -29,13 +29,12 @@ public class Roxi_comment {
 	@Column
 	private int patinum;
 	// 의사사번
-
 	//@JoinColumn(name="membernum", referencedColumnName = "membernum")
 	//@ManyToOne
 	@Column
 	private int membernum;
 	// 입력시간
-	@Column
+	@Column(columnDefinition = "datetime default now()", insertable = false, updatable = false)
 	private String inputdate;
 	// 내용
 	@Column
