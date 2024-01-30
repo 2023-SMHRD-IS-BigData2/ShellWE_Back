@@ -1,6 +1,7 @@
 <%@page import="antlr.collections.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,10 +9,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-<h1>ROXI MAIN</h1>
-
-<form action="/boot/insert" method="post">
+	<h1>ROXI MAIN</h1>
+	<c:if test="${not empty LoginMember}">
+		사용자: ${LoginMember.name}
+	</c:if>
+		<form action="/boot/insert" method="post">
     이름 : <input name="name" type="text">
     <br>
     성별 : <input name="gender" type="text">
@@ -30,7 +32,7 @@
     <input type="submit">
     
 </form>
-<br>
+		<br>
 <hr>
 <h3>환자 목록</h3>
 <table border="1">
