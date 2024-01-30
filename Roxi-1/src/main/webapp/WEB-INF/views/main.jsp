@@ -36,6 +36,21 @@
 <a href="/boot/dengerList">위험환자만 출력</a>
 <br>
 <a href="/boot/">전체환자 출력</a>
+<br>
+<form action="/boot/searchPatient">
+	<input name="search" type="text">
+	<input type="submit" value="검색">
+</form>
+<br>
+<form action="/boot/searchWard">
+	<select name="searchWard">
+		<option value"all">--</option>
+		<option value"A">A</option>
+		<option value"B">B</option>
+	</select>
+	<input type="submit" value="탐색">
+</form>
+<br>
 
 <table border="1">
 	<tr>
@@ -50,6 +65,7 @@
 		<th>denger</th>
         <th>doctor</th>
         <th>상세보기</th>
+        <th>comment</th>
 	</tr>
 	<c:forEach var="list" items="${list}">
 	<tr>
@@ -64,6 +80,7 @@
         <td>${list.sepsisscore}</td>
         <td>${list.physician}</td>
         <td><a href="/boot/detail?patinum=${list.patinum}">상세보기</a></td>
+        <td><a href="/boot/comment?patinum=${list.patinum}">commnet</a></td>
 	</tr>
 </c:forEach>
 </table>

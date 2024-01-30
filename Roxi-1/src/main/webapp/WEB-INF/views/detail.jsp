@@ -107,6 +107,7 @@
 	</tr>
 </c:forEach>
 </table>
+
 <br>
 <a href="/boot/">목록으로 돌아가기</a>
 
