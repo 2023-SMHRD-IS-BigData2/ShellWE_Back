@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.sun.istack.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,8 +26,12 @@ public class Roxi_Member {
 	@Column
 	private String name;
 	
+	// 의료진 ID
+	@NotNull
+	private String id;
+	
 	// 비밀번호
-	@Column
+	@NotNull
 	private String pw;
 	
 	// 직급

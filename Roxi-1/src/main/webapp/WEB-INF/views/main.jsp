@@ -10,6 +10,7 @@
 </head>
 <body>
 	<h1>ROXI MAIN</h1>
+	<a href="/boot/login">loginpage</a>
 	<c:if test="${not empty LoginMember}">
 		사용자: ${LoginMember.name}
 	</c:if>
