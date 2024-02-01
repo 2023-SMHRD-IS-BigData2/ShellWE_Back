@@ -1,5 +1,6 @@
 package com.smhrd.roxi.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -31,7 +32,7 @@ public class MemberController {
 	@PostMapping("/loginMember")
 	public String loginSystem(@RequestParam("membernum") String membernum, @RequestParam("pw") String pw,
 			HttpSession session, Model model) {
-		/* 로그인 하는 의사 번호와 pw확인하고 로그인 성공시 정보를 redirectAttributes에 담아 view에 전달하고, 
+		/* 로그인 하는 의사 번호와 pw확인하고 로그인 성공시 정보를 session에 담아 view에 전달하고, 
 		 * 로그인 실패시 model에 '로그인 실패'를 담아서 전달하는 메서드
 		 * try catch문을 이용하여 예외처리로 입력정보의 id값이 int값이 아니더라도 model에 loginError로 담아 로그인 실패를 전달하도록 하였음.
 		 * 
@@ -40,6 +41,10 @@ public class MemberController {
 			Roxi_Member loginMember = repo.findByMembernumAndPw(Integer.parseInt(membernum), pw);
 			// 로그인 성공시
 			if (loginMember != null) {
+				
+				loginMember.setLogintime(LocalDateTime.now());
+				repo.save(loginMember);
+				
 				session.setAttribute("LoginMember", loginMember);
 				System.out.println("로그인 성공");
 				return "redirect:/login";
@@ -51,11 +56,27 @@ public class MemberController {
 			}
 			// 입력값이 잘못되었을 경우
 		} catch (Exception e) {
-			System.out.println("An error occurred: " + e.getMessage());
 			model.addAttribute("loginError", "로그인 실패");
 			return "login";
 		}
 	}
+
+	// 로그아웃, 로그아웃 시간을 입력하는 메소드
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		/* 세션에서 로그인정보를 가져와 loginMember에 저장
+		   loginMember가 비어있지 않다면 로그아웃 시간을 업데이트하고 저장
+		   session정보를 삭제하여 로그아웃함.
+		*/
+		Roxi_Member loginMember = (Roxi_Member) session.getAttribute("LoginMember");
+		if(loginMember != null) {
+			loginMember.setLogouttime(LocalDateTime.now());
+			repo.save(loginMember);
+			session.removeAttribute("LoginMember");
+		}
+		return "redirect:/login";
+	}
+	
 	
 	// 관리자가 의료진을 등록하는 메소드
 	@PostMapping("/insertMember")
@@ -80,6 +101,17 @@ public class MemberController {
 		return "login";
 	}
 	
+	@RequestMapping("/updataMember")
+	public String updateMember(Roxi_Member member, HttpSession session) {
+		Roxi_Member loginMember = (Roxi_Member)session.getAttribute("LoginMember");
+		loginMember.setPw(member.getPw());
+		loginMember.setRank(member.getRank());
+		loginMember.setTell(member.getTell());
+		repo.save(loginMember);
+		
+		return "redirect:login";
+	}
+	
 	// 의료진 정보를 삭제하는 메소드
 	@GetMapping("/deleteMember")
 	public String deleteMember(@RequestParam("membernum") int membernum) {
@@ -90,6 +122,5 @@ public class MemberController {
 		repo.deleteById(membernum);
 		return "redirect:login";
 	}
-
-
+	
 }

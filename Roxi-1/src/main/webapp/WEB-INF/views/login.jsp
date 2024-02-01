@@ -17,7 +17,8 @@
 	<form action="/boot/loginMember" method="post">
 		id <input name="membernum"> <br>
 		pw <input name="pw"><br> 
-		<input type="submit">
+		<input type="submit" value="로그인">
+		<a href="/boot/logout">로그아웃</a>
 	</form>
 	<hr>
 	<h1>의료진 등록</h1>
@@ -36,8 +37,11 @@
 			<th>이름</th>
 			<th>아이디</th>
 			<th>직급</th>
+			<th>입사일<th>
 			<th>마지막 로그인시간</th>
+			<th>마지막 로그아웃 시간</th>
 			<th>연락처</th>
+			<th>퇴사</th>
 		</tr>
 	<c:forEach var="member" items="${allMember}">
 		<tr>
@@ -46,11 +50,43 @@
 			<td>${member.id}</td>
 			<td>${member.rank}</td>
 			<td>${member.date}</td>
+			<td>${member.logintime}</td>
+			<td>${member.logouttime}</td>
 			<td>${member.tell}</td>
 			<td><a href="/boot/deleteMember?membernum=${member.membernum}">삭제</a></td>
 		</tr>
 	</c:forEach>
 	</table>
+	<hr>
+	
+	<c:if test="${not empty LoginMember}">
+		<form action="/boot/updataMember" method="post">
+			<table border="1">
+				<tr>
+					<td>아이디</td>
+					<td><input name="id" value="${LoginMember.id}" readonly="readonly"></td>
+				</tr>
+				<tr>
+					<td>이름</td>
+					<td><input name="name" value="${LoginMember.name}"></td>
+				</tr>
+				<tr>
+					<td>비밀번호</td>
+					<td><input name="pw" value="${LoginMember.pw}"></td>
+				</tr>
+				<tr>
+					<td>직급</td>
+					<td><input name="rank" value="${LoginMember.rank}"></td>
+				</tr>
+				<tr>
+					<td>연락처</td>
+					<td><input name="tell" value="${LoginMember.tell}"></td>
+				</tr>
+			</table>
+			<input type="submit" value="정보수정">
+			
+		</form>
+	</c:if>
 
 </body>
 </html>
