@@ -1,5 +1,7 @@
 package com.smhrd.roxi.entity;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,13 +40,22 @@ public class Roxi_Member {
 	@Column
 	private String rank;
 	
-	// 로그인 시간
+	// 회원 등록일
 	@Column(columnDefinition = "datetime default now()", insertable = false, updatable = false)
 	private String date;
+	
+	// 로그인 시간
+	@Column(columnDefinition = "datetime")
+	private LocalDateTime logintime;
+	
+	// 로그아웃 시간
+	@Column(columnDefinition = "datetime")
+	private LocalDateTime logouttime;
 	
 	// 연락처
 	@Column
 	private String tell;
+
 	
 
 }
