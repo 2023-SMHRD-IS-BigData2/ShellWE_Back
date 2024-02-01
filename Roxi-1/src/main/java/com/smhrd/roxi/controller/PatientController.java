@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.smhrd.roxi.entity.Roxi_Patient;
 import com.smhrd.roxi.entity.Roxi_Sepsiss;
+import com.smhrd.roxi.entity.Roxi_comment;
+import com.smhrd.roxi.repository.CommentRepository;
 import com.smhrd.roxi.repository.PatientRepository;
 import com.smhrd.roxi.repository.SepsissRepository;
 
@@ -29,9 +32,26 @@ public class PatientController {
 	@Autowired
 	private SepsissRepository srepo;
 	
+	@Autowired
+	private CommentRepository crepo;
+	
 	@RequestMapping("/")
 	public String Main(Model model) {
 		List<Roxi_Patient> list = repo.findAll();
+		for(int i=0; i<list.size(); i++) {
+			System.out.print(list.get(i).getAge());
+			System.out.print(list.get(i).getBloodtype());
+			System.out.print(list.get(i).getGender());
+			System.out.print(list.get(i).getHpdate());
+			System.out.print(list.get(i).getName());
+			System.out.print(list.get(i).getPatinum());
+			System.out.print(list.get(i).getPhysician());
+			System.out.print(list.get(i).getSepsisscore());
+			System.out.print(list.get(i).getSepsisslevel());
+			System.out.print(list.get(i).getWard());
+			System.out.println();
+			
+		}
 		model.addAttribute("list",list);
 		return "main";
 	}
@@ -85,7 +105,6 @@ public class PatientController {
 		return "detail";
 		
 	}
-	
 	@RequestMapping("/searchPatient")
 	public String searchPatient(Model model, String search) {
 		List<Roxi_Patient> list = repo.findByname(search);
@@ -99,5 +118,25 @@ public class PatientController {
 		model.addAttribute("list",list);
 		return "main";
 	}
+	
+	//상태 변화 실행함수
+	//상태 변화 시 환자 테이블 status 수정
+	//수정 된 정보 comment 테이블에 입력
+    @Transactional
+    @RequestMapping("/changeSepsisslevel")
+    public String changeSepsisslevel(String sepsisslevel, String patinum, String pastStatus) {
+    	System.out.println("change");
+        Roxi_Patient patient = repo.findById(Integer.parseInt(patinum)).orElse(null);
+        if (patient != null) {
+            patient.setSepsisslevel(sepsisslevel);
+            repo.save(patient);
+    		Roxi_comment r = new Roxi_comment();
+    		r.setPatinum(Integer.parseInt(patinum));
+    		r.setMembernum(1);
+    		r.setContents(pastStatus + " -> " + sepsisslevel);
+    		crepo.save(r);
+        }
+        return "redirect:/"; // 변경 후 리다이렉트할 URL 반환
+    }
 	
 }

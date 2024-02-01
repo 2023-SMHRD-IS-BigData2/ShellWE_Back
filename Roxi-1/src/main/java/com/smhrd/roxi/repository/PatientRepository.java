@@ -11,4 +11,5 @@ public interface PatientRepository extends JpaRepository<Roxi_Patient, Integer>{
 	public List<Roxi_Patient> findBySepsisscoreGreaterThanEqual(int value);
 	public List<Roxi_Patient> findByname(String name);
 	public List<Roxi_Patient> findByward(String word);
+	
 }
