@@ -38,20 +38,6 @@ public class PatientController {
 	@RequestMapping("/")
 	public String Main(Model model) {
 		List<Roxi_Patient> list = repo.findAll();
-		for(int i=0; i<list.size(); i++) {
-			System.out.print(list.get(i).getAge());
-			System.out.print(list.get(i).getBloodtype());
-			System.out.print(list.get(i).getGender());
-			System.out.print(list.get(i).getHpdate());
-			System.out.print(list.get(i).getName());
-			System.out.print(list.get(i).getPatinum());
-			System.out.print(list.get(i).getPhysician());
-			System.out.print(list.get(i).getSepsisscore());
-			System.out.print(list.get(i).getSepsisslevel());
-			System.out.print(list.get(i).getWard());
-			System.out.println();
-			
-		}
 		model.addAttribute("list",list);
 		return "main";
 	}
@@ -81,8 +67,8 @@ public class PatientController {
 	
 	@RequestMapping("/dengerList")
 	public String dengerList(Model model) {
-		List<Roxi_Patient> list = repo.findBySepsisscoreGreaterThanEqual(80);
-		model.addAttribute(list);
+		List<Roxi_Patient> list = repo.findBysepsisslevel("Screening");
+		model.addAttribute("list",list);
 		return "main";
 	}
 	
@@ -137,6 +123,13 @@ public class PatientController {
     		crepo.save(r);
         }
         return "redirect:/"; // 변경 후 리다이렉트할 URL 반환
+    }
+    
+    @RequestMapping("/delPatient")
+    public String delPatient(String patinum) {
+    	repo.deleteById(Integer.parseInt(patinum));
+    	
+    	return "redirect:/";
     }
 	
 }
