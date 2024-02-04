@@ -51,6 +51,8 @@
 		</tr>
 		
 	</table>
+
+<a href="/boot/comment?patinum=${patient.patinum}">comment</a>
 <hr>
 <h3>데이터 입력</h3>
 <form action="/boot/detailInsert" method="get">
@@ -109,6 +111,8 @@
 </table>
 
 <br>
+<a href="/boot/delPatient?patinum=${patient.patinum}">환자 삭제</a>
+
 <a href="/boot/">목록으로 돌아가기</a>
 
 </body>

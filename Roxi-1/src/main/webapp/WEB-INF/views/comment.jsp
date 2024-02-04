@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<table>
+<table border="1">
 	<th>작성 시간</th>
 	<th>내용</th>
 	<th>작성자</th>
