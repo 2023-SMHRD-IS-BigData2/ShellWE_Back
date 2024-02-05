@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import org.json.simple.JSONArray;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -184,6 +185,59 @@ public class PatientController {
     	}
     	redirect.addFlashAttribute("list", list);
     	return "redirect:/flask";
+    }
+    
+    //JSONArrya 형태로 리턴하는 함수(react와 연동시 사용)
+    
+    public JSONArray getDetailList(String patinum) {
+    	JSONArray dataList = new JSONArray(); //JSONArray 객체
+    	List<HashMap<String, Object>> list = new ArrayList<>();//hashmap 데이터 타입의 list
+    	List<Smart_vital> plist = srepo.findBypatientnum(Integer.parseInt(patinum));
+    	Smart_Patient patient = repo.findById(Integer.parseInt(patinum)).get();
+    	//list에 hashmap 형태로 넣기
+    	for(int i=0; i<plist.size();i++) {
+    		HashMap<String, Object> hash = new HashMap<>();
+    		hash.put("age", patient.getAge());
+    		hash.put("gender", patient.getGender());
+    		hash.put("o2sat", plist.get(i).getO2sat());
+    		hash.put("temp", plist.get(i).getTemp());
+    		hash.put("sbp", plist.get(i).getSbp());
+    		hash.put("dbp", plist.get(i).getDbp());
+    		hash.put("resp", plist.get(i).getResp());
+    		hash.put("hr", plist.get(i).getHr());
+    		hash.put("map", plist.get(i).getMap());
+    		hash.put("etco2", plist.get(i).getEtco2());
+    		hash.put("baseexcess", plist.get(i).getBaseexcess());
+    		hash.put("hco3", plist.get(i).getHco3());
+    		hash.put("fio2", plist.get(i).getFio2());
+    		hash.put("ph", plist.get(i).getPh());
+    		hash.put("paco2", plist.get(i).getPaco2());
+    		hash.put("sao2", plist.get(i).getSao2());
+    		hash.put("ast", plist.get(i).getAst());
+    		hash.put("bun", plist.get(i).getBun());
+    		hash.put("alkalinephos", plist.get(i).getAlkalinephos());
+    		hash.put("calcium", plist.get(i).getCalcium());
+    		hash.put("chloride", plist.get(i).getChloride());
+    		hash.put("creatinine", plist.get(i).getCreatinine());
+    		hash.put("bilirubin_direct", plist.get(i).getBilirubindirect());
+    		hash.put("glucose", plist.get(i).getGlucose());
+    		hash.put("lactate", plist.get(i).getLactate());
+    		hash.put("magnesium", plist.get(i).getMagnesium());
+    		hash.put("phosphate", plist.get(i).getPhosphate());
+    		hash.put("potassium", plist.get(i).getPotassium());
+    		hash.put("biliubin_total", plist.get(i).getBilirubintotal());
+    		hash.put("troponini", plist.get(i).getTroponini());
+    		hash.put("hct", plist.get(i).getHct());
+    		hash.put("hgb", plist.get(i).getHgb());
+    		hash.put("ptt", plist.get(i).getPtt());
+    		hash.put("wbc", plist.get(i).getWbc());
+    		hash.put("fibrinogen", plist.get(i).getFibrinogen());
+    		hash.put("platelets", plist.get(i).getPlatelets());
+    		hash.put("time", plist.get(i).getSepdate());
+    		list.add(hash);//저장된 hashmap을 list에 저장
+    	}
+    	dataList.add(list);//JSONArray 객체에 list 저장
+    	return dataList; //객체 리턴
     }
     
 }
