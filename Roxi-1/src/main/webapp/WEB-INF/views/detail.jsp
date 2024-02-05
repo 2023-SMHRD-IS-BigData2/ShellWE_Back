@@ -114,6 +114,9 @@
 <a href="/boot/delPatient?patinum=${patient.patinum}">환자 삭제</a>
 
 <a href="/boot/">목록으로 돌아가기</a>
+<br>
+<br>
 
+<a href="/boot/SendAllData?patinum=${patient.patinum}">전체 데이터 파이썬으로 넘기기</a>
 </body>
 </html>

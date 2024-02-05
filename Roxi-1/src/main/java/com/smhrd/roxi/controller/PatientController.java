@@ -2,6 +2,8 @@ package com.smhrd.roxi.controller;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.smhrd.roxi.entity.Roxi_Patient;
 import com.smhrd.roxi.entity.Roxi_Sepsiss;
@@ -132,4 +135,24 @@ public class PatientController {
     	return "redirect:/";
     }
 	
+    //flask 서버에 값 넘기기
+    @RequestMapping("/SendAllData")
+    public String SendAllData(RedirectAttributes redirect, String patinum) {
+    
+    	List<HashMap<String, Object>> list = new ArrayList<>();
+    	List<Roxi_Sepsiss> plist = srepo.findBypatientnum(Integer.parseInt(patinum));
+    	for(int i=0; i<plist.size();i++) {
+    		HashMap<String, Object> hash = new HashMap<>();
+    		hash.put("dbp", plist.get(i).getDbp());
+    		hash.put("hr", plist.get(i).getHr());
+    		hash.put("resp", plist.get(i).getResp());
+    		hash.put("sbp", plist.get(i).getSbp());
+    		hash.put("spo2", plist.get(i).getSpo2());
+    		hash.put("temp", plist.get(i).getTemp());
+    		list.add(hash);
+    	}
+    	redirect.addFlashAttribute("list", list);
+    	return "redirect:/flask";
+    }
+    
 }
