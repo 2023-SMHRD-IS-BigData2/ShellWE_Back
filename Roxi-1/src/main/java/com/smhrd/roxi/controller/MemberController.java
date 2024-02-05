@@ -2,6 +2,7 @@ package com.smhrd.roxi.controller;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.smhrd.roxi.entity.Roxi_Member;
 import com.smhrd.roxi.repository.MemberRepository;
@@ -30,7 +32,7 @@ public class MemberController {
 
 	// 로그인 시스템
 	@PostMapping("/loginMember")
-	public String loginSystem(@RequestParam("membernum") String membernum, @RequestParam("pw") String pw,
+	public String loginSystem(@RequestParam("id") String id, @RequestParam("pw") String pw,
 			HttpSession session, Model model) {
 		/* 로그인 하는 의사 번호와 pw확인하고 로그인 성공시 정보를 session에 담아 view에 전달하고, 
 		 * 로그인 실패시 model에 '로그인 실패'를 담아서 전달하는 메서드
@@ -38,7 +40,7 @@ public class MemberController {
 		 * 
 		*/
 		try {
-			Roxi_Member loginMember = repo.findByMembernumAndPw(Integer.parseInt(membernum), pw);
+			Roxi_Member loginMember = repo.findByidAndPw(id, pw);
 			// 로그인 성공시
 			if (loginMember != null) {
 				
@@ -80,15 +82,32 @@ public class MemberController {
 	
 	// 관리자가 의료진을 등록하는 메소드
 	@PostMapping("/insertMember")
-	public String insertMember(Roxi_Member member) {
+	public String insertMember(Roxi_Member member, RedirectAttributes redirect,Model model) {
 		/*
-		  관리자가 의료진을 등록버튼을 누르면 jps를 이용하여
+		  관리자가 의료진을 등록버튼을 누르면 jpa를 이용하여
 		  DB에 의료진의 정보를 등록
+		  Optional클래스의 isPresent()메소드를 이용하여 중복여부를 확인후 insertError에 
+		  등록 성공, 실패 여부를 담아 front에 전달합니다.
 		*/
-		repo.save(member);
-		return "redirect:login";
+		Optional<Roxi_Member> isEqualsID = repo.findById(member.getId());
+		try {
+			if(isEqualsID.isPresent()) {
+				redirect.addFlashAttribute("insertError","중복된 아이디입니다");
+				model.addAttribute("additionalData");
+				return "redirect:login";
+			}else {
+				redirect.addFlashAttribute("insertError","등록 성공");
+				model.addAttribute("additionalData");
+				repo.save(member);
+				return "redirect:login";							
+			}
+		} catch (Exception e) {
+			redirect.addFlashAttribute("insertError", "등록실패");
+			model.addAttribute("additionalData");
+			return"redirect:login"; 
+		}
 	}
-	
+
 	// 의료진 정보를 불러와서 view에 전달하는 메소드
 	// front와 연동시 변경 예정 login.jsp를 테스트 페이지로 사용 
 	@RequestMapping("/login") 
@@ -101,10 +120,15 @@ public class MemberController {
 		return "login";
 	}
 	
+	/* 의료진 정보를 수정하는 메소드
+	   직급, 비밀번호, 전화번호 비교적 자주 변동이 있는 사항에 대해서만
+	   수정할 수 있도록 만들어 두었습니다.  
+	*/
 	@RequestMapping("/updataMember")
 	public String updateMember(Roxi_Member member, HttpSession session) {
 		Roxi_Member loginMember = (Roxi_Member)session.getAttribute("LoginMember");
 		loginMember.setPw(member.getPw());
+		loginMember.setName(member.getName());
 		loginMember.setRank(member.getRank());
 		loginMember.setTell(member.getTell());
 		repo.save(loginMember);

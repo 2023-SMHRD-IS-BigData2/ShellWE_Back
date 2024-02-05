@@ -10,17 +10,22 @@
 <body>
 
 	<h1>로그인</h1>
-
+		
+		    <script>
+		        alert("${insertError}");
+		    </script>
 	<c:if test="${not empty LoginMember}">
 		사용자: ${LoginMember.name}
 	</c:if>
 	<form action="/boot/loginMember" method="post">
-		id <input name="membernum"> <br>
+		id <input name="id"> <br>
 		pw <input name="pw"><br> 
 		<input type="submit" value="로그인">
 		<a href="/boot/logout">로그아웃</a>
 	</form>
+	
 	<hr>
+	
 	<h1>의료진 등록</h1>
 	<form action="/boot/insertMember" method="post">
 		이름 : <input name="name"> <br> 
@@ -33,7 +38,6 @@
 	<hr>
 	<table border="1">
 		<tr>
-			<th>의료인번호</th>
 			<th>이름</th>
 			<th>아이디</th>
 			<th>직급</th>
@@ -45,7 +49,6 @@
 		</tr>
 	<c:forEach var="member" items="${allMember}">
 		<tr>
-			<td>${member.membernum}</td>
 			<td>${member.name}</td>
 			<td>${member.id}</td>
 			<td>${member.rank}</td>

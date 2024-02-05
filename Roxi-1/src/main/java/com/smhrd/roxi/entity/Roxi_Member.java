@@ -30,6 +30,7 @@ public class Roxi_Member {
 	
 	// 의료진 ID
 	@NotNull
+	@Column(unique = true)
 	private String id;
 	
 	// 비밀번호
