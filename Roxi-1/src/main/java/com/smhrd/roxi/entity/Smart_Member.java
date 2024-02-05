@@ -38,7 +38,7 @@ public class Smart_Member {
 	
 	// 직급
 	@Column
-	private String member_rank;
+	private String memberrank;
 	
 	// 회원 등록일
 	@Column(columnDefinition = "datetime default now()", insertable = false, updatable = false)

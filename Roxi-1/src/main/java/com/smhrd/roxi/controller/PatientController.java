@@ -166,13 +166,13 @@ public class PatientController {
     		hash.put("calcium", plist.get(i).getCalcium());
     		hash.put("chloride", plist.get(i).getChloride());
     		hash.put("creatinine", plist.get(i).getCreatinine());
-    		hash.put("bilirubin_direct", plist.get(i).getBilirubin_direct());
+    		hash.put("bilirubin_direct", plist.get(i).getBilirubindirect());
     		hash.put("glucose", plist.get(i).getGlucose());
     		hash.put("lactate", plist.get(i).getLactate());
     		hash.put("magnesium", plist.get(i).getMagnesium());
     		hash.put("phosphate", plist.get(i).getPhosphate());
     		hash.put("potassium", plist.get(i).getPotassium());
-    		hash.put("biliubin_total", plist.get(i).getBilirubin_total());
+    		hash.put("biliubin_total", plist.get(i).getBilirubintotal());
     		hash.put("troponini", plist.get(i).getTroponini());
     		hash.put("hct", plist.get(i).getHct());
     		hash.put("hgb", plist.get(i).getHgb());

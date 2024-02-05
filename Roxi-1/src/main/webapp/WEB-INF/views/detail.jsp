@@ -148,13 +148,13 @@ Smart_Patient p = (Smart_Patient)request.getAttribute("patient");
 	    <td>${list.calcium}</td>
 	    <td>${list.chloride}</td>
 	    <td>${list.creatinine}</td>
-	    <td>${list.bilirubin_direct}</td>
+	    <td>${list.bilirubindirect}</td>
 	    <td>${list.glucose}</td>
 	    <td>${list.lactate}</td>
 	    <td>${list.magnesium}</td>
 	    <td>${list.phosphate}</td>
 	    <td>${list.potassium}</td>
-	    <td>${list.bilirubin_total}</td>
+	    <td>${list.bilirubintotal}</td>
 	    <td>${list.troponini}</td>
 	    <td>${list.hct}</td>
 	    <td>${list.hgb}</td>

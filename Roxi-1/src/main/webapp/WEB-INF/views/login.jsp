@@ -26,7 +26,7 @@
 		이름 : <input name="name"> <br> 
 		id : <input name="id"><br>
 		pw : <input name="pw"><br> 
-		직급 : <input name="member_rank"><br> 
+		직급 : <input name="memberrank"><br> 
 		연락처 : <input name="tell"><br> 
 		<input type="submit">
 	</form>
@@ -46,7 +46,7 @@
 		<tr>
 			<td>${member.name}</td>
 			<td>${member.id}</td>
-			<td>${member.member_rank}</td>
+			<td>${member.memberrank}</td>
 			<td>${member.date}</td>
 			<td>${member.logintime}</td>
 			<td>${member.logouttime}</td>
@@ -74,7 +74,7 @@
 				</tr>
 				<tr>
 					<td>직급</td>
-					<td><input name="rank" value="${LoginMember.member_rank}"></td>
+					<td><input name="rank" value="${LoginMember.memberrank}"></td>
 				</tr>
 				<tr>
 					<td>연락처</td>
