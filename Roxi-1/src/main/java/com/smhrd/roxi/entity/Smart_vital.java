@@ -114,7 +114,7 @@ public class Smart_vital {
 	
 	//직접빌리루빈
 	@Column
-	private float bilirubin_direct;
+	private float bilirubindirect;
 	
 	//혈당
 	@Column
@@ -138,7 +138,7 @@ public class Smart_vital {
 	
 	//총 빌리루빈
 	@Column
-	private float bilirubin_total;
+	private float bilirubintotal;
 	
 	//트로포닌
 	@Column
