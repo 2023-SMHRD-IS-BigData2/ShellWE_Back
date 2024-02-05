@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.smhrd.roxi.entity.Roxi_Member;
+import com.smhrd.roxi.entity.Smart_Member;
 import com.smhrd.roxi.repository.MemberRepository;
 
 @Controller
@@ -38,7 +38,7 @@ public class MemberController {
 		 * 
 		*/
 		try {
-			Roxi_Member loginMember = repo.findByMembernumAndPw(Integer.parseInt(membernum), pw);
+			Smart_Member loginMember = repo.findByMembernumAndPw(Integer.parseInt(membernum), pw);
 			// 로그인 성공시
 			if (loginMember != null) {
 				
@@ -68,7 +68,7 @@ public class MemberController {
 		   loginMember가 비어있지 않다면 로그아웃 시간을 업데이트하고 저장
 		   session정보를 삭제하여 로그아웃함.
 		*/
-		Roxi_Member loginMember = (Roxi_Member) session.getAttribute("LoginMember");
+		Smart_Member loginMember = (Smart_Member) session.getAttribute("LoginMember");
 		if(loginMember != null) {
 			loginMember.setLogouttime(LocalDateTime.now());
 			repo.save(loginMember);
@@ -80,7 +80,7 @@ public class MemberController {
 	
 	// 관리자가 의료진을 등록하는 메소드
 	@PostMapping("/insertMember")
-	public String insertMember(Roxi_Member member) {
+	public String insertMember(Smart_Member member) {
 		/*
 		  관리자가 의료진을 등록버튼을 누르면 jps를 이용하여
 		  DB에 의료진의 정보를 등록
@@ -96,16 +96,16 @@ public class MemberController {
 		/* memberList페이지를 요청하면 모든 의료진의 정보를
 		   jpa를 이하여 불러와 model에 담아 view에 전달하는 메소드
 		*/
-		List<Roxi_Member> memberList = repo.findAll();
+		List<Smart_Member> memberList = repo.findAll();
 		model.addAttribute("allMember",memberList);
 		return "login";
 	}
 	
 	@RequestMapping("/updataMember")
-	public String updateMember(Roxi_Member member, HttpSession session) {
-		Roxi_Member loginMember = (Roxi_Member)session.getAttribute("LoginMember");
+	public String updateMember(Smart_Member member, HttpSession session) {
+		Smart_Member loginMember = (Smart_Member)session.getAttribute("LoginMember");
 		loginMember.setPw(member.getPw());
-		loginMember.setRank(member.getRank());
+		loginMember.setMember_rank(member.getMember_rank());
 		loginMember.setTell(member.getTell());
 		repo.save(loginMember);
 		

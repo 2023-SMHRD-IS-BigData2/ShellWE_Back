@@ -1,6 +1,6 @@
 
 <%@page import="java.util.List"%>
-<%@page import="com.smhrd.roxi.entity.Roxi_Patient"%>
+<%@page import="com.smhrd.roxi.entity.Smart_Patient"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -13,7 +13,9 @@
 
 </head>
 <body>
-<%List<Roxi_Patient> Plist = (List<Roxi_Patient>)request.getAttribute("list");%>
+<%
+List<Smart_Patient> Plist = (List<Smart_Patient>)request.getAttribute("list");
+%>
 	<h1>ROXI MAIN</h1>
 	<a href="/boot/login">loginpage</a>
 	<c:if test="${not empty LoginMember}">

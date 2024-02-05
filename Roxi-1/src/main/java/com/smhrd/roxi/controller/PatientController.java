@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.smhrd.roxi.entity.Roxi_Patient;
-import com.smhrd.roxi.entity.Roxi_Sepsiss;
-import com.smhrd.roxi.entity.Roxi_comment;
+import com.smhrd.roxi.entity.Smart_Patient;
+import com.smhrd.roxi.entity.Smart_vital;
+import com.smhrd.roxi.entity.Smart_comment;
 import com.smhrd.roxi.repository.CommentRepository;
 import com.smhrd.roxi.repository.PatientRepository;
 import com.smhrd.roxi.repository.SepsissRepository;
@@ -40,14 +40,14 @@ public class PatientController {
 	
 	@RequestMapping("/")
 	public String Main(Model model) {
-		List<Roxi_Patient> list = repo.findAll();
+		List<Smart_Patient> list = repo.findAll();
 		model.addAttribute("list",list);
 		return "main";
 	}
 	
 	
 	@PostMapping("/insert")
-	public String insert(Roxi_Patient patient) {
+	public String insert(Smart_Patient patient) {
 		System.out.println(patient.getName());
 		repo.save(patient);
 		return "redirect:/";
@@ -55,22 +55,22 @@ public class PatientController {
 	
 	@GetMapping("/detail")
 	public String detail(Model model, String patinum) {
-		Optional<Roxi_Patient> patient = repo.findById(Integer.parseInt(patinum));
-		List<Roxi_Sepsiss> list = srepo.findBypatientnum(Integer.parseInt(patinum));
+		Optional<Smart_Patient> patient = repo.findById(Integer.parseInt(patinum));
+		List<Smart_vital> list = srepo.findBypatientnum(Integer.parseInt(patinum));
 		model.addAttribute("patient",patient.get());
 		model.addAttribute("list", list);
 		return "detail";
 	}
 	
 	@GetMapping("/detailInsert")
-	public String detailInsert(Roxi_Sepsiss sepsiss) {
+	public String detailInsert(Smart_vital sepsiss) {
 		srepo.save(sepsiss);
 		return "redirect:/detail?patinum="+sepsiss.getPatientnum();
 	}
 	
 	@RequestMapping("/dengerList")
 	public String dengerList(Model model) {
-		List<Roxi_Patient> list = repo.findBysepsisslevel("Screening");
+		List<Smart_Patient> list = repo.findBysepsisslevel("Screening");
 		model.addAttribute("list",list);
 		return "main";
 	}
@@ -87,8 +87,8 @@ public class PatientController {
 		LocalDate localDate = LocalDate.parse(date);
 		Date d = Date.valueOf(localDate);
 		int pNum = Integer.parseInt(patinum);
-		List<Roxi_Sepsiss> list = srepo.findBypatientnumAndSepdate(pNum, d);
-		Optional<Roxi_Patient> patient = repo.findById(pNum);
+		List<Smart_vital> list = srepo.findBypatientnumAndSepdate(pNum, d);
+		Optional<Smart_Patient> patient = repo.findById(pNum);
 		model.addAttribute("patient",patient.get());
 		model.addAttribute("list", list);
 		return "detail";
@@ -96,14 +96,14 @@ public class PatientController {
 	}
 	@RequestMapping("/searchPatient")
 	public String searchPatient(Model model, String search) {
-		List<Roxi_Patient> list = repo.findByname(search);
+		List<Smart_Patient> list = repo.findByname(search);
 		model.addAttribute("list", list);
 		return "main";
 	}
 	
 	@RequestMapping("/searchWard")
 	public String searchWard(Model model, String searchWard) {
-		List<Roxi_Patient> list = repo.findByward(searchWard);
+		List<Smart_Patient> list = repo.findByward(searchWard);
 		model.addAttribute("list",list);
 		return "main";
 	}
@@ -115,11 +115,11 @@ public class PatientController {
     @RequestMapping("/changeSepsisslevel")
     public String changeSepsisslevel(String sepsisslevel, String patinum, String pastStatus) {
     	System.out.println("change");
-        Roxi_Patient patient = repo.findById(Integer.parseInt(patinum)).orElse(null);
+        Smart_Patient patient = repo.findById(Integer.parseInt(patinum)).orElse(null);
         if (patient != null) {
             patient.setSepsisslevel(sepsisslevel);
             repo.save(patient);
-    		Roxi_comment r = new Roxi_comment();
+    		Smart_comment r = new Smart_comment();
     		r.setPatinum(Integer.parseInt(patinum));
     		r.setMembernum(1);
     		r.setContents(pastStatus + " -> " + sepsisslevel);
@@ -140,15 +140,46 @@ public class PatientController {
     public String SendAllData(RedirectAttributes redirect, String patinum) {
     
     	List<HashMap<String, Object>> list = new ArrayList<>();
-    	List<Roxi_Sepsiss> plist = srepo.findBypatientnum(Integer.parseInt(patinum));
+    	List<Smart_vital> plist = srepo.findBypatientnum(Integer.parseInt(patinum));
+    	Smart_Patient patient = repo.findById(Integer.parseInt(patinum)).get();
     	for(int i=0; i<plist.size();i++) {
     		HashMap<String, Object> hash = new HashMap<>();
-    		hash.put("dbp", plist.get(i).getDbp());
-    		hash.put("hr", plist.get(i).getHr());
-    		hash.put("resp", plist.get(i).getResp());
-    		hash.put("sbp", plist.get(i).getSbp());
-    		hash.put("spo2", plist.get(i).getSpo2());
+    		hash.put("age", patient.getAge());
+    		hash.put("gender", patient.getGender());
+    		hash.put("o2sat", plist.get(i).getO2sat());
     		hash.put("temp", plist.get(i).getTemp());
+    		hash.put("sbp", plist.get(i).getSbp());
+    		hash.put("dbp", plist.get(i).getDbp());
+    		hash.put("resp", plist.get(i).getResp());
+    		hash.put("hr", plist.get(i).getHr());
+    		hash.put("map", plist.get(i).getMap());
+    		hash.put("etco2", plist.get(i).getEtco2());
+    		hash.put("baseexcess", plist.get(i).getBaseexcess());
+    		hash.put("hco3", plist.get(i).getHco3());
+    		hash.put("fio2", plist.get(i).getFio2());
+    		hash.put("ph", plist.get(i).getPh());
+    		hash.put("paco2", plist.get(i).getPaco2());
+    		hash.put("sao2", plist.get(i).getSao2());
+    		hash.put("ast", plist.get(i).getAst());
+    		hash.put("bun", plist.get(i).getBun());
+    		hash.put("alkalinephos", plist.get(i).getAlkalinephos());
+    		hash.put("calcium", plist.get(i).getCalcium());
+    		hash.put("chloride", plist.get(i).getChloride());
+    		hash.put("creatinine", plist.get(i).getCreatinine());
+    		hash.put("bilirubin_direct", plist.get(i).getBilirubin_direct());
+    		hash.put("glucose", plist.get(i).getGlucose());
+    		hash.put("lactate", plist.get(i).getLactate());
+    		hash.put("magnesium", plist.get(i).getMagnesium());
+    		hash.put("phosphate", plist.get(i).getPhosphate());
+    		hash.put("potassium", plist.get(i).getPotassium());
+    		hash.put("biliubin_total", plist.get(i).getBilirubin_total());
+    		hash.put("troponini", plist.get(i).getTroponini());
+    		hash.put("hct", plist.get(i).getHct());
+    		hash.put("hgb", plist.get(i).getHgb());
+    		hash.put("ptt", plist.get(i).getPtt());
+    		hash.put("wbc", plist.get(i).getWbc());
+    		hash.put("fibrinogen", plist.get(i).getFibrinogen());
+    		hash.put("platelets", plist.get(i).getPlatelets());
     		list.add(hash);
     	}
     	redirect.addFlashAttribute("list", list);

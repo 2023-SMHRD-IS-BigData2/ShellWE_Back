@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Roxi_Member {
+public class Smart_Member {
 	// 사원번호
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // Auto_increment
@@ -38,7 +38,7 @@ public class Roxi_Member {
 	
 	// 직급
 	@Column
-	private String rank;
+	private String member_rank;
 	
 	// 회원 등록일
 	@Column(columnDefinition = "datetime default now()", insertable = false, updatable = false)

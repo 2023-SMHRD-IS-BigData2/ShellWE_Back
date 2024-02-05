@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Roxi_Patient {
+public class Smart_Patient {
 
 	// 환자번호
 	@Id
@@ -42,7 +42,8 @@ public class Roxi_Patient {
 	// 혈액행
 	@Column
 	private String bloodtype;
-	// 패혈증 상태
+	
+	// 현재 상태
 	@Column
 	private String sepsisslevel;
 	// 패혈증 수치
