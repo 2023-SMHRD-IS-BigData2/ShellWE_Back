@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Roxi_comment {
+public class Smart_comment {
 
 	// 코멘트 번호
 	@Id

@@ -1,4 +1,4 @@
-<%@page import="com.smhrd.roxi.entity.Roxi_Patient"%>
+<%@page import="com.smhrd.roxi.entity.Smart_Patient"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
@@ -9,7 +9,9 @@
 <title>Detail Page</title>
 </head>
 <body>
-<%Roxi_Patient p = (Roxi_Patient)request.getAttribute("patient");%>
+<%
+Smart_Patient p = (Smart_Patient)request.getAttribute("patient");
+%>
 	<h1>${patient.name} 환자 정보</h1>
 	<hr>
 	<table>
@@ -87,23 +89,79 @@
 
 <table border="1">
 	<tr>
-		<th>dbp</th>
-		<th>hr</th>
-		<th>resp</th>
-		<th>sbp</th>
-		<th>spo2</th>
+		<th>o2sat</th>
 		<th>temp</th>
+		<th>sbp</th>
+		<th>dbp</th>
+		<th>resp</th>
+		<th>hr</th>
+		<th>map</th>
+		<th>etco2</th>
+		<th>BaseExcess</th>
+		<th>hco3</th>
+		<th>fio2</th>
+		<th>ph</th>
+		<th>paco2</th>
+		<th>sao2</th>
+		<th>ast</th>
+		<th>bun</th>
+		<th>alkalinephos</th>
+		<th>calciumth</th>
+		<th>chloride</th>
+		<th>creatinine</th>
+		<th>bilirubin_direct</th>
+		<th>glucose</th>
+		<th>lactate</th>
+		<th>magnesium</th>
+		<th>phosphate</th>
+		<th>potassium</th>
+		<th>biliubin_total</th>
+		<th>troponini</th>
+		<th>hct</th>
+		<th>hgb</th>
+		<th>ptt</th>
+		<th>wbc</th>
+		<th>fibrinogen</th>
+		<th>platelets</th>
 		<th>예측치</th>
 		<th>입력날짜</th>
 	</tr>
 	<c:forEach var="list" items="${list}">
 	<tr>
-	    <td>${list.dbp}</td>
-	    <td>${list.hr}</td>
-	    <td>${list.resp}</td>
-	    <td>${list.sbp}</td>
-	    <td>${list.spo2}</td>
+	    <td>${list.o2sat}</td>
 	    <td>${list.temp}</td>
+	    <td>${list.sbp}</td>
+	    <td>${list.dbp}</td>
+	    <td>${list.resp}</td>
+	    <td>${list.hr}</td>
+	    <td>${list.map}</td>
+	    <td>${list.etco2}</td>
+	    <td>${list.baseexcess}</td>
+	    <td>${list.hco3}</td>
+	    <td>${list.fio2}</td>
+	    <td>${list.ph}</td>
+	    <td>${list.paco2}</td>
+	    <td>${list.sao2}</td>
+	    <td>${list.ast}</td>
+	    <td>${list.bun}</td>
+	    <td>${list.alkalinephos}</td>
+	    <td>${list.calcium}</td>
+	    <td>${list.chloride}</td>
+	    <td>${list.creatinine}</td>
+	    <td>${list.bilirubin_direct}</td>
+	    <td>${list.glucose}</td>
+	    <td>${list.lactate}</td>
+	    <td>${list.magnesium}</td>
+	    <td>${list.phosphate}</td>
+	    <td>${list.potassium}</td>
+	    <td>${list.bilirubin_total}</td>
+	    <td>${list.troponini}</td>
+	    <td>${list.hct}</td>
+	    <td>${list.hgb}</td>
+	    <td>${list.ptt}</td>
+	    <td>${list.wbc}</td>
+	    <td>${list.fibrinogen}</td>
+	    <td>${list.platelets}</td>
 	    <td>${list.sepsisscore}</td>
 	    <td>${list.sepdate}</td>
 	</tr>

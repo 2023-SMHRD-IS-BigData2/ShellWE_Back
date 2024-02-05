@@ -3,12 +3,12 @@ package com.smhrd.roxi.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.smhrd.roxi.entity.Roxi_Member;
+import com.smhrd.roxi.entity.Smart_Member;
 
 @Repository
-public interface MemberRepository extends JpaRepository<Roxi_Member, Integer>{
+public interface MemberRepository extends JpaRepository<Smart_Member, Integer>{
 
-	Roxi_Member findByMembernumAndPw(int i, String pw);
+	Smart_Member findByMembernumAndPw(int i, String pw);
 
 	
 }
