@@ -105,7 +105,7 @@ public class MemberController {
 	public String updateMember(Smart_Member member, HttpSession session) {
 		Smart_Member loginMember = (Smart_Member)session.getAttribute("LoginMember");
 		loginMember.setPw(member.getPw());
-		loginMember.setMember_rank(member.getMember_rank());
+		loginMember.setMemberrank(member.getMemberrank());
 		loginMember.setTell(member.getTell());
 		repo.save(loginMember);
 		
