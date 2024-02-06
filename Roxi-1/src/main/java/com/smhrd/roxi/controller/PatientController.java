@@ -47,6 +47,17 @@ public class PatientController {
 	}
 	
 	
+	//환자 정보 리턴 메소드
+	public JSONArray getPatient() {
+		List<Smart_Patient> list = repo.findAll();
+		JSONArray patientList = new JSONArray();
+		patientList.add(list);
+		return patientList;
+		
+	}
+	
+	
+	
 	@PostMapping("/insert")
 	public String insert(Smart_Patient patient) {
 		System.out.println(patient.getName());
@@ -238,6 +249,13 @@ public class PatientController {
     	}
     	dataList.add(list);//JSONArray 객체에 list 저장
     	return dataList; //객체 리턴
+    }
+    
+    public JSONArray getvital(String patinum) {
+    	JSONArray vitalList = new JSONArray();
+    	List<Smart_vital> list = srepo.findBypatientnum(Integer.parseInt(patinum));
+    	vitalList.add(list);
+    	return vitalList;
     }
     
 }

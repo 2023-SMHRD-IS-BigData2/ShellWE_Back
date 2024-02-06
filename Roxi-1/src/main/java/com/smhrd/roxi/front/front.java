@@ -21,4 +21,19 @@ public class front {
     	dataList = patientcontroller.getDetailList(patinum); //patientcontroller에 존재하는 getDetailList() 메소드 호출 후 return 결과 변수에 담기
     	return dataList;// JSONArray 데이터 리턴
     }
+    
+    //환자 기본 정보 출력 함수
+    @RequestMapping("/getPatient")
+    public JSONArray getPatient() {
+    	JSONArray patientList = new JSONArray();
+    	patientList = patientcontroller.getPatient();
+    	return patientList;
+    }
+    
+    @RequestMapping("/getVital")
+    public JSONArray getVital(String patinum) {
+    	JSONArray VitalList = new JSONArray();
+    	VitalList = patientcontroller.getvital(patinum);
+    	return VitalList;
+    }
 }
