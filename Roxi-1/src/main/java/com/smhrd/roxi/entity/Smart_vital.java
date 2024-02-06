@@ -36,7 +36,7 @@ public class Smart_vital {
 	
 	// 검사 일시 default값 지정
 	@Column(columnDefinition = "datetime default now()", insertable = false, updatable = false)
-	private Date sepdate;
+	private String sepdate;
 	// 산소포화도
 	@Column
 	private float o2sat;
