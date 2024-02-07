@@ -13,5 +13,5 @@ public interface PatientRepository extends JpaRepository<Smart_Patient, Integer>
 	public List<Smart_Patient> findBySepsisscoreGreaterThanEqual(int value);
 	public List<Smart_Patient> findByname(String name);
 	public List<Smart_Patient> findByward(String word);
-	public List<Smart_Patient> findBysepsisslevel(String sepsisslevel);	
+	public List<Smart_Patient> findBysepsisslevel(String sepsisslevel);
 }
