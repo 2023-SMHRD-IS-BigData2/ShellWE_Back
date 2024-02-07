@@ -19,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.smhrd.smart.entity.Smart_Patient;
 import com.smhrd.smart.entity.Smart_comment;
-import com.smhrd.smart.entity.Smart_vital;
 import com.smhrd.smart.entity.smart_vital1;
 import com.smhrd.smart.repository.CommentRepository;
 import com.smhrd.smart.repository.PatientRepository;
@@ -720,62 +719,6 @@ public class PatientController {
     }
 
 
-	
-    
-    
-    public JSONArray getdatecolumn(int patinum, String date, String column) {
-    	JSONArray columnArr = new JSONArray();
-		LocalDate localDate = LocalDate.parse(date);
-		Date d = Date.valueOf(localDate);
-		List<smart_vital1> list = srepo.findBypatientnumAndSepdate(patinum, d);
-		for(int i=0; i<list.size();i++) {
-			switch(column) {
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-			}
-		}
-		return null;
-	}
     
     
 }
