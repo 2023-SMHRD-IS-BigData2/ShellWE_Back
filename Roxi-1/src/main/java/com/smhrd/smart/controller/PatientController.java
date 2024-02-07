@@ -20,9 +20,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.smhrd.smart.entity.Smart_Patient;
 import com.smhrd.smart.entity.Smart_comment;
 import com.smhrd.smart.entity.Smart_vital;
+import com.smhrd.smart.entity.smart_vital1;
 import com.smhrd.smart.repository.CommentRepository;
 import com.smhrd.smart.repository.PatientRepository;
 import com.smhrd.smart.repository.SepsissRepository;
+import com.smhrd.smart.repository.SepsissRepository1;
 
 import aj.org.objectweb.asm.Type;
 
@@ -32,6 +34,9 @@ public class PatientController {
 	
 	@Autowired
 	private PatientRepository repo;
+	
+	@Autowired
+	private SepsissRepository1 srepo1;
 	
 	@Autowired
 	private SepsissRepository srepo;
@@ -68,7 +73,7 @@ public class PatientController {
 	@GetMapping("/detail")
 	public String detail(Model model, String patinum) {
 		Optional<Smart_Patient> patient = repo.findById(Integer.parseInt(patinum));
-		List<Smart_vital> list = srepo.findBypatientnum(Integer.parseInt(patinum));
+		List<smart_vital1> list = srepo1.findBypatientnum(Integer.parseInt(patinum));
 		model.addAttribute("patient",patient.get());
 		model.addAttribute("list", list);
 		return "detail";
