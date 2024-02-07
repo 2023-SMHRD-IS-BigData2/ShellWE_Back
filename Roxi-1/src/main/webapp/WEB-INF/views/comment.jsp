@@ -1,5 +1,5 @@
 <%@page import="java.util.List"%>
-<%@page import="com.smhrd.roxi.entity.Smart_comment"%>
+<%@page import="com.smhrd.smart.entity.Smart_comment"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>

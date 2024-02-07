@@ -1,11 +1,11 @@
-package com.smhrd.roxi.repository;
+package com.smhrd.smart.repository;
 
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.smhrd.roxi.entity.Smart_Member;
+import com.smhrd.smart.entity.Smart_Member;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Smart_Member, Integer>{

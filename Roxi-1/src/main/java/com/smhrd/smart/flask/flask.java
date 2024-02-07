@@ -1,4 +1,4 @@
-package com.smhrd.roxi.flask;
+package com.smhrd.smart.flask;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;

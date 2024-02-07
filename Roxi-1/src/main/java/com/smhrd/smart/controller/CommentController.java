@@ -1,4 +1,4 @@
-package com.smhrd.roxi.controller;
+package com.smhrd.smart.controller;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.smhrd.roxi.entity.Smart_comment;
-import com.smhrd.roxi.repository.CommentRepository;
+import com.smhrd.smart.entity.Smart_comment;
+import com.smhrd.smart.repository.CommentRepository;
 
 @Controller
 public class CommentController {

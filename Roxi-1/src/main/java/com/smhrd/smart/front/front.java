@@ -1,11 +1,11 @@
-package com.smhrd.roxi.front;
+package com.smhrd.smart.front;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.smhrd.roxi.controller.PatientController;
+import com.smhrd.smart.controller.PatientController;
 
 @RestController //리액트로 데이터만 전달하는 컨트롤러 어노테이션
 @CrossOrigin("http://localhost:3000")//해당 url로 요청이 들어왔을 시 작동

@@ -1,4 +1,4 @@
-package com.smhrd.roxi.controller;
+package com.smhrd.smart.controller;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.smhrd.roxi.entity.Smart_Patient;
-import com.smhrd.roxi.entity.Smart_vital;
-import com.smhrd.roxi.entity.Smart_comment;
-import com.smhrd.roxi.repository.CommentRepository;
-import com.smhrd.roxi.repository.PatientRepository;
-import com.smhrd.roxi.repository.SepsissRepository;
+import com.smhrd.smart.entity.Smart_Patient;
+import com.smhrd.smart.entity.Smart_comment;
+import com.smhrd.smart.entity.Smart_vital;
+import com.smhrd.smart.repository.CommentRepository;
+import com.smhrd.smart.repository.PatientRepository;
+import com.smhrd.smart.repository.SepsissRepository;
 
 import aj.org.objectweb.asm.Type;
 
