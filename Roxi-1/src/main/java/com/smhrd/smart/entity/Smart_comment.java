@@ -1,4 +1,4 @@
-package com.smhrd.roxi.entity;
+package com.smhrd.smart.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

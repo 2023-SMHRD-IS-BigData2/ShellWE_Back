@@ -1,4 +1,4 @@
-package com.smhrd.roxi.repository;
+package com.smhrd.smart.repository;
 
 
 import java.sql.Date;
@@ -10,8 +10,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.smhrd.roxi.entity.Smart_Patient;
-import com.smhrd.roxi.entity.Smart_vital;
+import com.smhrd.smart.entity.Smart_Patient;
+import com.smhrd.smart.entity.Smart_vital;
 
 @Repository
 public interface SepsissRepository extends JpaRepository<Smart_vital, Integer> {

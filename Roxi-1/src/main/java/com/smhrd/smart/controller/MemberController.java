@@ -1,4 +1,4 @@
-package com.smhrd.roxi.controller;
+package com.smhrd.smart.controller;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.smhrd.roxi.entity.Smart_Member;
-import com.smhrd.roxi.repository.MemberRepository;
+import com.smhrd.smart.entity.Smart_Member;
+import com.smhrd.smart.repository.MemberRepository;
 
 @Controller
 public class MemberController {
@@ -49,7 +49,7 @@ public class MemberController {
 				
 				session.setAttribute("LoginMember", loginMember);
 				System.out.println("로그인 성공");
-				return "redirect:/login";
+				return "redirect:/";
 			// 로그인 실패시 
 			} else {
 				System.out.println("로그인 실패");

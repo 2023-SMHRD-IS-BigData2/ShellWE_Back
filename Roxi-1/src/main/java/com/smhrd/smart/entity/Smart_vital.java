@@ -1,4 +1,4 @@
-package com.smhrd.roxi.entity;
+package com.smhrd.smart.entity;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
