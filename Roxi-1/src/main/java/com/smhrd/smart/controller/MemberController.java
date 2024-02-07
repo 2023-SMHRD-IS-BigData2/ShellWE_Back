@@ -20,7 +20,7 @@ import com.smhrd.smart.repository.MemberRepository;
 
 @Controller
 public class MemberController {
-
+	
 	@Autowired
 	private MemberRepository repo;
 	

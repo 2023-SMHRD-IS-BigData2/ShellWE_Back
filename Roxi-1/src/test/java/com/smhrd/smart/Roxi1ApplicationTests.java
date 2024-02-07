@@ -1,4 +1,4 @@
-package com.smhrd.roxi;
+package com.smhrd.smart;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
