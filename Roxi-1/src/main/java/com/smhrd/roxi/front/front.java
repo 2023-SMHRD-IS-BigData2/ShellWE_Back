@@ -45,10 +45,10 @@ public class front {
     	
     }
     
-    @RequestMapping("/dateColumn")
-    public JSONArray dateColumn(String patinum, String date, String column) {
-    	JSONArray datecolumn = new JSONArray();
-    	datecolumn = patientcontroller.getdatecolumn(Integer.parseInt(patinum), date, column);
+    @RequestMapping("/normalRange")
+    public JSONObject dateColumn(String column) {
+    	JSONObject datecolumn = new JSONObject();
+    	datecolumn = patientcontroller.normalRange(column);
     	return datecolumn;
     }
     

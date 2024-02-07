@@ -39,6 +39,7 @@ public class PatientController {
 	@Autowired
 	private CommentRepository crepo;
 	
+	
 	@RequestMapping("/")
 	public String Main(Model model) {
 		List<Smart_Patient> list = repo.findAll();
@@ -51,6 +52,9 @@ public class PatientController {
 	public JSONArray getPatient() {
 		List<Smart_Patient> list = repo.findAll();
 		JSONArray patientList = new JSONArray();
+		for(int i=0; i<list.size();i++) {
+			System.out.println(list.get(i));
+		}
 		patientList.add(list);
 		return patientList;
 		
@@ -716,64 +720,146 @@ public class PatientController {
 		dengerlist.put("dengercolumn",dengercolumn);
     	return dengerlist;
     }
-
-
-	
-    
-    
-    public JSONArray getdatecolumn(int patinum, String date, String column) {
-    	JSONArray columnArr = new JSONArray();
-		LocalDate localDate = LocalDate.parse(date);
-		Date d = Date.valueOf(localDate);
-		List<Smart_vital> list = srepo.findBypatientnumAndSepdate(patinum, d);
-		for(int i=0; i<list.size();i++) {
-			switch(column) {
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-//				case "hr": columnArr.add(list.get(i).getHr()); break;
-			}
-		}
-		return null;
-	}
+    public JSONObject normalRange(String column) {
+    	JSONObject normal = new JSONObject();
+    	HashMap<String, Integer> map = new HashMap<>();
+    	switch (column) {
+    	case "hr":
+    		map.put("max", 100);
+    		map.put("min", 60);
+    		break;
+    	case "o2sat":
+    		map.put("max", 100);
+    		map.put("min", 95);
+    		break;
+    	case "temp":
+    		map.put("max", 120);
+    		map.put("min", 90);
+    		break;
+    	case "sbp":
+    		map.put("max", 120);
+    		map.put("min", 90);
+    		break;
+    	case "map":
+    		map.put("max", 100);
+    		map.put("min", 70);
+    		break;
+    	case "dbp":
+    		map.put("max", 80);
+    		map.put("min", 60);
+    		break;
+    	case "resp":
+    		map.put("max", 20);
+    		map.put("min", 12);
+    		break;
+    	case "etco2":
+    		map.put("max", 45);
+    		map.put("min", 35);
+    		break;
+    	case "baseexcess":
+    		map.put("max", 2);
+    		map.put("min", -2);
+    		break;
+    	case "hco3":
+    		map.put("max", 22);
+    		map.put("min", 26);
+    		break;
+    	case "fio2":
+    		map.put("max", 100);
+    		map.put("min", 21);
+    		break;
+    	case "ph":
+    		map.put("max", 8);
+    		map.put("min", 7);
+    		break;
+    	case "paco2":
+    		map.put("max", 45);
+    		map.put("min", 35);
+    		break;
+    	case "sao2":
+    		map.put("max", 100);
+    		map.put("min", 95);
+    		break;
+    	case "ast":
+    		map.put("max", 40);
+    		map.put("min", 10);
+    		break;
+    	case "bun":
+    		map.put("max", 20);
+    		map.put("min", 7);
+    		break;
+    	case "alkalinephos":
+    		map.put("max", 140);
+    		map.put("min", 20);
+    		break;
+    	case "calcium":
+    		map.put("max", 11);
+    		map.put("min", 8);
+    		break;
+    	case "chloride":
+    		map.put("max", 106);
+    		map.put("min", 96);
+    		break;
+    	case "creatinine":
+    		map.put("max", 1);
+    		map.put("min", 0);
+    		break;
+    	case "bilirubin_direct":
+    		map.put("max", 1);
+    		map.put("min", 0);
+    		break;
+    	case "glucose":
+    		map.put("max", 100);
+    		map.put("min", 70);
+    		break;
+    	case "lactate":
+    		map.put("max", 2);
+    		map.put("min", 0);
+    		break;
+    	case "magnesium":
+    		map.put("max", 2);
+    		map.put("min", 1);
+    		break;
+    	case "phosphate":
+    		map.put("max", 5);
+    		map.put("min", 2);
+    		break;
+    	case "bilirubin_total":
+    		map.put("max", 1);
+    		map.put("min", 0);
+    		break;
+    	case "troponini":
+    		map.put("max", 1);
+    		map.put("min", 0);
+    		break;
+    	case "hct":
+    		map.put("max", 53);
+    		map.put("min", 36);
+    		break;
+    	case "hgb":
+    		map.put("max", 18);
+    		map.put("min", 12);
+    		break;
+    	case "ptt":
+    		map.put("max", 35);
+    		map.put("min", 25);
+    		break;
+    	case "fibrinogen":
+    		map.put("max", 400);
+    		map.put("min", 200);
+    		break;
+    	case "platelets":
+    		map.put("max", 450000);
+    		map.put("min", 150000);
+    		break;
+    	default:
+    		map.put("max", 70);
+    		map.put("min", 50);
+    	}
+    	normal.put("normal", map);
+    	return normal;
+    	
+    }
     
     
 }
