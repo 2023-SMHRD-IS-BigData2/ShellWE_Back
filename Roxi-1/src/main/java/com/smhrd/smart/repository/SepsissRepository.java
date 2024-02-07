@@ -12,13 +12,14 @@ import org.springframework.stereotype.Repository;
 
 import com.smhrd.smart.entity.Smart_Patient;
 import com.smhrd.smart.entity.Smart_vital;
+import com.smhrd.smart.entity.smart_vital1;
 
 @Repository
-public interface SepsissRepository extends JpaRepository<Smart_vital, Integer> {
-	List<Smart_vital> findBypatientnum(int patientnum);
+public interface SepsissRepository extends JpaRepository<smart_vital1, Integer> {
+	List<smart_vital1> findBypatientnum(int patientnum);
 	
-	@Query("SELECT r FROM Smart_vital r WHERE DATE(r.sepdate) = :date AND r.patientnum = :patientnum")
-	List<Smart_vital> findBypatientnumAndSepdate(@Param("patientnum") int patientnum, @Param("date") Date date);
+	@Query("SELECT r FROM smart_vital1 r WHERE DATE(r.sepdate) = :date AND r.patientnum = :patientnum")
+	List<smart_vital1> findBypatientnumAndSepdate(@Param("patientnum") int patientnum, @Param("date") Date date);
 
 	public void deleteBypatientnum(int parseInt);
 

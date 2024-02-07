@@ -24,7 +24,6 @@ import com.smhrd.smart.entity.smart_vital1;
 import com.smhrd.smart.repository.CommentRepository;
 import com.smhrd.smart.repository.PatientRepository;
 import com.smhrd.smart.repository.SepsissRepository;
-import com.smhrd.smart.repository.SepsissRepository1;
 
 import aj.org.objectweb.asm.Type;
 
@@ -35,8 +34,6 @@ public class PatientController {
 	@Autowired
 	private PatientRepository repo;
 	
-	@Autowired
-	private SepsissRepository1 srepo1;
 	
 	@Autowired
 	private SepsissRepository srepo;
@@ -73,14 +70,14 @@ public class PatientController {
 	@GetMapping("/detail")
 	public String detail(Model model, String patinum) {
 		Optional<Smart_Patient> patient = repo.findById(Integer.parseInt(patinum));
-		List<smart_vital1> list = srepo1.findBypatientnum(Integer.parseInt(patinum));
+		List<smart_vital1> list = srepo.findBypatientnum(Integer.parseInt(patinum));
 		model.addAttribute("patient",patient.get());
 		model.addAttribute("list", list);
 		return "detail";
 	}
 	
 	@GetMapping("/detailInsert")
-	public String detailInsert(Smart_vital sepsiss) {
+	public String detailInsert(smart_vital1 sepsiss) {
 		srepo.save(sepsiss);
 		return "redirect:/detail?patinum="+sepsiss.getPatientnum();
 	}
@@ -104,7 +101,7 @@ public class PatientController {
 		LocalDate localDate = LocalDate.parse(date);
 		Date d = Date.valueOf(localDate);
 		int pNum = Integer.parseInt(patinum);
-		List<Smart_vital> list = srepo.findBypatientnumAndSepdate(pNum, d);
+		List<smart_vital1> list = srepo.findBypatientnumAndSepdate(pNum, d);
 		Optional<Smart_Patient> patient = repo.findById(pNum);
 		model.addAttribute("patient",patient.get());
 		model.addAttribute("list", list);
@@ -157,7 +154,7 @@ public class PatientController {
     public String SendAllData(RedirectAttributes redirect, String patinum) {
     
     	List<HashMap<String, Object>> list = new ArrayList<>();
-    	List<Smart_vital> plist = srepo.findBypatientnum(Integer.parseInt(patinum));
+    	List<smart_vital1> plist = srepo.findBypatientnum(Integer.parseInt(patinum));
     	Smart_Patient patient = repo.findById(Integer.parseInt(patinum)).get();
     	for(int i=0; i<plist.size();i++) {
     		HashMap<String, Object> hash = new HashMap<>();
@@ -207,7 +204,7 @@ public class PatientController {
     public JSONArray getDetailList(String patinum) {
     	JSONArray dataList = new JSONArray(); //JSONArray 객체
     	List<HashMap<String, Object>> list = new ArrayList<>();//hashmap 데이터 타입의 list
-    	List<Smart_vital> plist = srepo.findBypatientnum(Integer.parseInt(patinum));
+    	List<smart_vital1> plist = srepo.findBypatientnum(Integer.parseInt(patinum));
     	Smart_Patient patient = repo.findById(Integer.parseInt(patinum)).get();
     	//list에 hashmap 형태로 넣기
     	for(int i=0; i<plist.size();i++) {
@@ -257,7 +254,7 @@ public class PatientController {
     
     public JSONArray getvital(String patinum) {
     	JSONArray vitalList = new JSONArray();
-    	List<Smart_vital> list = srepo.findBypatientnum(Integer.parseInt(patinum));
+    	List<smart_vital1> list = srepo.findBypatientnum(Integer.parseInt(patinum));
     	vitalList.add(list);
     	return vitalList;
     }
@@ -268,7 +265,7 @@ public class PatientController {
     	JSONObject dengerlist = new JSONObject();
     	LocalDate localDate = LocalDate.parse(date);
 		Date d = Date.valueOf(localDate);
-		List<Smart_vital> list = srepo.findBypatientnumAndSepdate(patinum, d);
+		List<smart_vital1> list = srepo.findBypatientnumAndSepdate(patinum, d);
     	HashMap<String, Boolean> dengercolumn = new HashMap<>();
     	int v1=0;
     	float v2=0;
@@ -730,7 +727,7 @@ public class PatientController {
     	JSONArray columnArr = new JSONArray();
 		LocalDate localDate = LocalDate.parse(date);
 		Date d = Date.valueOf(localDate);
-		List<Smart_vital> list = srepo.findBypatientnumAndSepdate(patinum, d);
+		List<smart_vital1> list = srepo.findBypatientnumAndSepdate(patinum, d);
 		for(int i=0; i<list.size();i++) {
 			switch(column) {
 //				case "hr": columnArr.add(list.get(i).getHr()); break;
