@@ -11,7 +11,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.smhrd.smart.entity.Smart_Patient;
-import com.smhrd.smart.entity.Smart_vital;
 import com.smhrd.smart.entity.smart_vital1;
 
 @Repository
