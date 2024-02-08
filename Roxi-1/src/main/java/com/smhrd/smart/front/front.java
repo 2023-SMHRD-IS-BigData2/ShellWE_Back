@@ -37,5 +37,10 @@ public class front {
     	return VitalList;
     }
     
-    
+    @RequestMapping("/dengerColumns")
+    public JSONObject dateColumn(String patinum, String date) {
+    	JSONObject dengercolumns = new JSONObject();
+    	dengercolumns = patientcontroller.getDengerList(Integer.parseInt(patinum), date);
+    	return dengercolumns;
+    }
 }
