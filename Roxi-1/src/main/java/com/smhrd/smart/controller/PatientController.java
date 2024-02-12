@@ -46,10 +46,24 @@ public class PatientController {
 	}
 
 	// 환자 정보 리턴 메소드
+	// 전체 환자, 위험 환자, 오늘 발생환자 수 출력
 	public JSONArray getPatient() {
+		JSONObject num = new JSONObject();
 		List<Smart_Patient> list = repo.findAll();
+		List<Smart_Patient> listScreening = repo.findBysepsisslevel("Screening");
 		JSONArray patientList = new JSONArray();
+		int cnt = 0;
+		System.out.println(LocalDate.now());
+		for(int i=0; i<listScreening.size(); i++) {
+			if(list.get(i).getSepstartdate().equals(LocalDate.now())) {
+				cnt++;
+			}
+		}
+		num.put("Allpatient", list.size());
+		num.put("Screening", listScreening.size());
+		num.put("todayScreening", cnt);
 		patientList.add(list);
+		patientList.add(num);
 		return patientList;
 
 	}
@@ -133,6 +147,29 @@ public class PatientController {
 			crepo.save(r);
 		}
 		return "redirect:/"; // 변경 후 리다이렉트할 URL 반환
+	}
+	
+	
+	//환자 상태 변화
+	//상태 변화 시 comment에 추가
+	public String changeStatus(String sepsisslevel, String patinum) {
+		System.out.println(sepsisslevel);
+		System.out.println(patinum);
+		Smart_Patient patient = repo.findById(Integer.parseInt(patinum)).get();
+		System.out.println(patient);
+		String pastStatus = patient.getSepsisslevel();
+		
+		if (patient != null) {
+			patient.setSepsisslevel(sepsisslevel);
+			repo.save(patient);
+			Smart_comment r = new Smart_comment();
+			r.setPatinum(Integer.parseInt(patinum));
+			r.setMembernum(1);
+			r.setContents(pastStatus + " -> " + sepsisslevel);
+			System.out.println(pastStatus + " -> " + sepsisslevel);
+			crepo.save(r);
+		}
+		return "change!";
 	}
 
 	@RequestMapping("/delPatient")
@@ -869,4 +906,6 @@ public class PatientController {
 		return dengerlist;
 	}
 
+	
+	
 }

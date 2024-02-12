@@ -2,6 +2,7 @@ package com.smhrd.smart.controller;
 
 import java.util.List;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,14 +26,30 @@ public class CommentController {
 		return "comment";
 	}
 	
-	@RequestMapping("/insertComment")
-	public String insertComment(String insertComment, String patinum) {
+//	@RequestMapping("/insertComment")
+//	public String insertComment(String insertComment, String patinum) {
+//		Smart_comment r = new Smart_comment();
+//		r.setPatinum(Integer.parseInt(patinum));
+//		r.setMembernum(1);
+//		r.setContents(insertComment);
+//		crepo.save(r);
+//		return "redirect:/comment?patinum="+patinum;
+//	}
+
+	public JSONObject getcomment(int patinum) {
+		JSONObject patientcomment = new JSONObject();
+		List<Smart_comment> list = crepo.findBypatinum(patinum);
+		patientcomment.put("comments", list);
+		return patientcomment;
+	}
+	
+	public String insertcommnet(String insertComment, String patinum) {
 		Smart_comment r = new Smart_comment();
 		r.setPatinum(Integer.parseInt(patinum));
 		r.setMembernum(1);
 		r.setContents(insertComment);
 		crepo.save(r);
-		return "redirect:/comment?patinum="+patinum;
+		return "success";
 	}
 	
 }

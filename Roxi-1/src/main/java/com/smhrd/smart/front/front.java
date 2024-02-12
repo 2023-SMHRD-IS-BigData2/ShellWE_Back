@@ -5,6 +5,7 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import com.smhrd.smart.controller.CommentController;
 import com.smhrd.smart.controller.PatientController;
 
 @RestController //리액트로 데이터만 전달하는 컨트롤러 어노테이션
@@ -13,6 +14,9 @@ public class front {
 
 	@Autowired
 	private PatientController patientcontroller;
+	
+	@Autowired
+	private CommentController commentcontroller;
     
 	//환자 번호에 해당하는 생체 데이터 JSONArray 형태로 출력
     @RequestMapping("/getList")// 만약 url이 http://localhost:8088/boot/getList 요청이 들어왔을 시 실행
@@ -30,6 +34,7 @@ public class front {
     	return patientList;
     }
     
+    //해당 환자의 모든 vital 수치 출력(환자 나이, 성별 x)
     @RequestMapping("/getVital")
     public JSONArray getVital(String patinum) {
     	JSONArray VitalList = new JSONArray();
@@ -37,10 +42,33 @@ public class front {
     	return VitalList;
     }
     
+    //해당 날짜에 위험한 컬럼 표현
     @RequestMapping("/dengerColumns")
     public JSONObject dateColumn(String patinum, String date) {
     	JSONObject dengercolumns = new JSONObject();
     	dengercolumns = patientcontroller.getDengerList(Integer.parseInt(patinum), date);
     	return dengercolumns;
+    }
+    
+    //환자별 comment 출력
+    @RequestMapping("/getComment")
+    public JSONObject getComment(String patinum) {
+    	JSONObject commnets = new JSONObject();
+    	commnets = commentcontroller.getcomment(Integer.parseInt(patinum));
+    	return commnets;
+    }
+    
+    //코멘트 입력
+    @RequestMapping("/insertComment")
+    public String insertComment(String insertComment, String patinum) {
+    	String result = commentcontroller.insertcommnet(insertComment, patinum);
+    	return result;
+    }
+    
+    //상태 변화시 commnet 입력
+    @RequestMapping("/changeStatus")
+    public String changeStatus(String sepsisslevel, String patinum) {
+    	String result = patientcontroller.changeStatus(sepsisslevel, patinum);
+    	return result;
     }
 }

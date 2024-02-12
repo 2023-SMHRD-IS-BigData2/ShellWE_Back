@@ -71,6 +71,7 @@ List<Smart_Patient> Plist = (List<Smart_Patient>)request.getAttribute("list");
 			<th>doctor</th>
 			<th>상세보기</th>
 			<th>comment</th>
+			<th>최근 패혈증 발병 시간</th>
 		</tr>
 		<%if(Plist!=null){ %>
 		<%for(int i=0; i<Plist.size(); i++){ %>
@@ -116,6 +117,7 @@ List<Smart_Patient> Plist = (List<Smart_Patient>)request.getAttribute("list");
 				<td><%=Plist.get(i).getPhysician()%></td>
 				<td><a href="/boot/detail?patinum=<%=Plist.get(i).getPatinum()%>">상세보기</a></td>
 				<td><a href="/boot/comment?patinum=<%=Plist.get(i).getPatinum()%>">commnet</a></td>
+				<td>${Plist.get(i).getSepstartdate}</td>
 			</tr>
 			<%}}else{%>
 			<tr>
