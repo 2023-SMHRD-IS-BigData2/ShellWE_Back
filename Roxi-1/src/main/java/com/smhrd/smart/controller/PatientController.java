@@ -55,7 +55,7 @@ public class PatientController {
 		int cnt = 0;
 		System.out.println(LocalDate.now());
 		for(int i=0; i<listScreening.size(); i++) {
-			if(list.get(i).getSepstartdate().equals(LocalDate.now())) {
+			if(list.get(i).getSepstartdate()!=null&&list.get(i).getSepstartdate().equals(LocalDate.now())) {
 				cnt++;
 			}
 		}
