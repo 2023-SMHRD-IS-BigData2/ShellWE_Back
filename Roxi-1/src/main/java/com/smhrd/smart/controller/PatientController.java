@@ -47,11 +47,11 @@ public class PatientController {
 
 	// 환자 정보 리턴 메소드
 	// 전체 환자, 위험 환자, 오늘 발생환자 수 출력
-	public JSONArray getPatient() {
+	public JSONObject getPatient() {
 		JSONObject num = new JSONObject();
 		List<Smart_Patient> list = repo.findAll();
 		List<Smart_Patient> listScreening = repo.findBysepsisslevel("Screening");
-		JSONArray patientList = new JSONArray();
+		JSONObject patientList = new JSONObject();
 		int cnt = 0;
 		System.out.println(LocalDate.now());
 		for(int i=0; i<listScreening.size(); i++) {
@@ -59,11 +59,11 @@ public class PatientController {
 				cnt++;
 			}
 		}
-		num.put("Allpatient", list.size());
-		num.put("Screening", listScreening.size());
-		num.put("todayScreening", cnt);
-		patientList.add(list);
-		patientList.add(num);
+		
+		patientList.put("patientList",list);
+		patientList.put("Allpatient", list.size());
+		patientList.put("Screening", listScreening.size());
+		patientList.put("todayScreening", cnt);
 		return patientList;
 
 	}
