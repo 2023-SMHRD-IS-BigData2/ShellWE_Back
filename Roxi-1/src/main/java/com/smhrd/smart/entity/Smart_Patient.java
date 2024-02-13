@@ -52,6 +52,9 @@ public class Smart_Patient {
 	// 환자의 주치의
 	private String physician;
 	
+	//패혈증 발병 시간
+	private String sepstartdate;
+	
 	// FK를 사용하는 경우 toString 메소드를 직접 Override 할것.
 	// JPA를 사용할시 롬복으로 toString을 사용할경우 버그 발생함.
 	@Override
