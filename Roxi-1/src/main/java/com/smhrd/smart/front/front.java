@@ -28,8 +28,8 @@ public class front {
     
     //환자 기본 정보 출력 함수
     @RequestMapping("/getPatient")
-    public JSONArray getPatient() {
-    	JSONArray patientList = new JSONArray();
+    public JSONObject getPatient() {
+    	JSONObject patientList = new JSONObject();
     	patientList = patientcontroller.getPatient();
     	return patientList;
     }
