@@ -61,7 +61,7 @@ public class MemberController {
 			if(admin.equals(ID)) {
 				repo.save(loginMember);
 				session.setAttribute("LoginMember", loginMember);
-				json.put("message", "admin");
+				json.put("login", "admin");
 				return new ResponseEntity<>(json, HttpStatus.OK);				
 			}else {
 				
@@ -72,18 +72,18 @@ public class MemberController {
 					
 					session.setAttribute("LoginMember", loginMember);
 					System.out.println("로그인 성공");
-					json.put("message", "main");
+					json.put("login", "main");
 					return new ResponseEntity<>(json, HttpStatus.OK);
 				// 로그인 실패시 
 				} else {
 					System.out.println("로그인 실패");
-					json.put("loginError", "login");
+					json.put("login", "login");
 					return new ResponseEntity<>(json, HttpStatus.OK);
 				}
 			}
 			// 입력값이 잘못되었을 경우
 		} catch (Exception e) {
-			json.put("loginError", "login");
+			json.put("login", "login");
 			return new ResponseEntity<>(json, HttpStatus.OK);
 		}
 	}
@@ -116,28 +116,29 @@ public class MemberController {
 
 	// 관리자가 의료진을 등록하는 메소드
 	@PostMapping("/insertMember")
-	public String insertMember(Smart_Member member, RedirectAttributes redirect, Model model) {
+	public ResponseEntity<JSONObject> insertMember(Smart_Member member, RedirectAttributes redirect, Model model) {
+	    JSONObject responseJson = new JSONObject();
 		/*
 		 * 관리자가 의료진을 등록버튼을 누르면 jpa를 이용하여 DB에 의료진의 정보를 등록 Optional클래스의 isPresent()메소드
 		 * 이용하여 아이디 중복확인 insertError에 등록 성공, 실패 여부를 담아 front에 전달
 		 */
-		Optional<Smart_Member> isEqualsID = repo.findById(member.getId());
-		try {
-			if (isEqualsID.isPresent()) {
-				redirect.addFlashAttribute("insertError", "중복된 아이디입니다");
-				model.addAttribute("additionalData");
-				return "redirect:login";
-			} else {
-				redirect.addFlashAttribute("insertError", "등록 성공");
-				model.addAttribute("additionalData");
-				repo.save(member);
-				return "redirect:login";
-			}
-		} catch (Exception e) {
-			redirect.addFlashAttribute("insertError", "등록실패");
-			model.addAttribute("additionalData");
-			return "redirect:login";
-		}
+	    try {
+	        Optional<Smart_Member> isEqualsID = repo.findById(member.getId());
+	        if (isEqualsID.isPresent()) {
+	            // 중복된 아이디
+	            responseJson.put("insert", "중복된 아이디");
+	            return new ResponseEntity<>(responseJson, HttpStatus.BAD_REQUEST);
+	        } else {
+	            // 등록 성공
+	            responseJson.put("insert", "등록 성공");
+	            repo.save(member);
+	            return new ResponseEntity<>(responseJson, HttpStatus.OK);
+	        }
+	    } catch (Exception e) {
+	        // 등록 실패
+	        responseJson.put("insert", "등록 실패");
+	        return new ResponseEntity<>(responseJson, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
 	}
 
 	// 의료진 정보를 불러와서 view에 전달하는 메소드
