@@ -1,5 +1,7 @@
 package com.smhrd.smart.front;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,9 +62,11 @@ public class front {
     
     //코멘트 입력
     @RequestMapping("/insertComment")
-    public String insertComment(String insertComment, String patinum) {
-    	String result = commentcontroller.insertcommnet(insertComment, patinum);
-    	return result;
+    public String insertComment(HttpServletRequest request,
+            @RequestParam("insertComment") String insertComment,
+            @RequestParam("patinum") String patinum) {
+    		String result = commentcontroller.insertcomment(request, insertComment, patinum);
+    		return result;
     }
     
     //상태 변화시 commnet 입력

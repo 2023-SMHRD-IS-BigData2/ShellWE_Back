@@ -39,4 +39,7 @@ public class Smart_comment {
 	// 내용
 	@Column
 	private String contents;
+	
+	@Column
+	private String membername;
 }
