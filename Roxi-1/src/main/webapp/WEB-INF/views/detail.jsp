@@ -80,7 +80,8 @@ Smart_Patient p = (Smart_Patient)request.getAttribute("patient");
 날짜 선택
 
 <form action="/boot/selectDate">
-	<input name="date" type="date">
+	<input name="startdate" type="date">
+	<input name="enddate" type="date">
 	<input type="hidden" name="patinum" value="${patient.patinum}">
 	<input type="submit" value="선택">
 </form>
