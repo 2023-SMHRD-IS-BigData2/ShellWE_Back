@@ -20,6 +20,7 @@ List<Smart_Patient> Plist = (List<Smart_Patient>)request.getAttribute("list");
 	<a href="/boot/login">loginpage</a>
 	<c:if test="${not empty LoginMember}">
 		사용자: ${LoginMember.name}
+		<a href="/boot/logout">로그아웃</a>
 	</c:if>
 	<form action="/boot/insert" method="post">
 		이름 : <input name="name" type="text"> <br> 성별 : <input

@@ -1,4 +1,7 @@
 package com.smhrd.smart.entity;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,8 +30,8 @@ public class smart_vital1 {
 		private Float sepsisscore;
 
 		// 검사 일시 default값 지정
-		@Column
-		private String sepdate;
+		@Column(columnDefinition = "datetime")
+		private LocalDate sepdate;
 		// 산소포화도
 		@Column(nullable = true)
 		private Float o2sat;
