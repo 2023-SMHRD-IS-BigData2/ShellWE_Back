@@ -18,7 +18,7 @@
 	<tr>
 		<td>${list.inputdate}</td>
 		<td>${list.contents}</td>
-		<td>${list.membernum}</td>
+		<td>${list.membername}</td>
 	</tr>
 	</c:forEach>
 </table>
