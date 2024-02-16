@@ -914,4 +914,19 @@ public class PatientController {
 	}
 	
 	
+	//환자 병동 변경
+	public void updateWard(int patinum, String ward) {
+		Smart_Patient patient = repo.findById(patinum).get();
+		patient.setWard(ward);
+		repo.save(patient);
+	}
+	
+	//환자 전공의 변경
+	public void updatePhysician(int patinum, String physician) {
+		Smart_Patient patient = repo.findById(patinum).get();
+		patient.setPhysician(physician);
+		repo.save(patient);
+	}
+	
+	
 }
