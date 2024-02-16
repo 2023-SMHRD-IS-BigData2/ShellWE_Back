@@ -45,9 +45,9 @@ public class CommentController {
 	}
 	
 	// 코멘트 입력
-	public String insertcomment(String insertComment, String patinum, int membernum) {
+	public String insertcomment(String insertComment, String patinum, String id) {
 		Smart_comment r = new Smart_comment();
-		Smart_Member member = mrepo.findById(membernum).get();
+		Smart_Member member = mrepo.findByid(id);
         if(member!=null) {
         	r.setMembernum(member.getMembernum()); //세션에 값이 존재할 경우 Membernum 추가
         	r.setMembername(member.getName()); // 세션에 값이 존재할 경우 Membername 추가
