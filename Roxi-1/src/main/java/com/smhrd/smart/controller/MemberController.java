@@ -59,6 +59,7 @@ public class MemberController {
          if(admin.equals(ID)) {
             repo.save(loginMember);
             session.setAttribute("LoginMember", loginMember);
+            System.out.println(session.getAttribute("LoginMember"));
             json.put("login", "admin");
             return new ResponseEntity<>(json, HttpStatus.OK);            
          }else {
