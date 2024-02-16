@@ -63,8 +63,8 @@ public class front {
     
     //코멘트 입력
     @RequestMapping("/insertComment")
-    public String insertComment(String insertComment, String patinum, String membernum) {
-    		String result = commentcontroller.insertcomment(insertComment, patinum, Integer.parseInt(membernum));
+    public String insertComment(String insertComment, String patinum, String id) {
+    		String result = commentcontroller.insertcomment(insertComment, patinum, id);
     		return result;
     }
     
