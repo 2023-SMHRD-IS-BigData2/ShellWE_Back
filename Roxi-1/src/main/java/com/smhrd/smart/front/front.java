@@ -75,5 +75,16 @@ public class front {
     	return result;
     }
     
+    //환자 병동 수정
+    @RequestMapping("/updateWard")
+    public void updateWard(String patinum, String ward) {
+    	patientcontroller.updateWard(Integer.parseInt(patinum), ward);
+    }
+    
+    //환자 의료진 수정
+    @RequestMapping("/updatePhysician")
+    public void update(String patinum, String physician) {
+    	patientcontroller.updatePhysician(Integer.parseInt(patinum), physician);
+    }
 
 }

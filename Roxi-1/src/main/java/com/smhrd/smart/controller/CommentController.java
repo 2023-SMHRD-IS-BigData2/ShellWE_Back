@@ -36,16 +36,6 @@ public class CommentController {
 		model.addAttribute("pNum", Integer.parseInt(patinum));
 		return "comment";
 	}
-	
-//	@RequestMapping("/insertComment")
-//	public String insertComment(String insertComment, String patinum) {
-//		Smart_comment r = new Smart_comment();
-//		r.setPatinum(Integer.parseInt(patinum));
-//		r.setMembernum(1);
-//		r.setContents(insertComment);
-//		crepo.save(r);
-//		return "redirect:/comment?patinum="+patinum;
-//	}
 
 	public JSONObject getcomment(int patinum) {
 		JSONObject patientcomment = new JSONObject();
@@ -54,6 +44,7 @@ public class CommentController {
 		return patientcomment;
 	}
 	
+	// 코멘트 입력
 	public String insertcomment(String insertComment, String patinum, int membernum) {
 		Smart_comment r = new Smart_comment();
 		Smart_Member member = mrepo.findById(membernum).get();
@@ -71,5 +62,7 @@ public class CommentController {
 		crepo.save(r);
 		return "success";
 	}
+	
+	
 	
 }
