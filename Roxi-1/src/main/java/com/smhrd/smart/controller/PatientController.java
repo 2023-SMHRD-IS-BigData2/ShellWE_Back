@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.smhrd.smart.entity.Smart_Patient;
@@ -29,6 +34,8 @@ import aj.org.objectweb.asm.Type;
 @Controller
 public class PatientController {
 
+	
+	
 	@Autowired
 	private PatientRepository repo;
 
@@ -905,7 +912,6 @@ public class PatientController {
 		dengerlist.put("dengercolumn", dengercolumn);
 		return dengerlist;
 	}
-
 	
 	
 }
