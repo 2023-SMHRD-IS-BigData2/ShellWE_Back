@@ -1,6 +1,7 @@
 package com.smhrd.smart.front;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -62,10 +63,8 @@ public class front {
     
     //코멘트 입력
     @RequestMapping("/insertComment")
-    public String insertComment(HttpServletRequest request,
-            @RequestParam("insertComment") String insertComment,
-            @RequestParam("patinum") String patinum) {
-    		String result = commentcontroller.insertcomment(request, insertComment, patinum);
+    public String insertComment(String insertComment, String patinum, String membernum) {
+    		String result = commentcontroller.insertcomment(insertComment, patinum, Integer.parseInt(membernum));
     		return result;
     }
     
@@ -75,4 +74,6 @@ public class front {
     	String result = patientcontroller.changeStatus(sepsisslevel, patinum);
     	return result;
     }
+    
+
 }

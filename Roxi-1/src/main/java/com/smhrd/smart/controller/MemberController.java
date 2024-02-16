@@ -67,9 +67,9 @@ public class MemberController {
                
                loginMember.setLogintime(LocalDateTime.now());
                repo.save(loginMember);
-               
                session.setAttribute("LoginMember", loginMember);
                System.out.println("로그인 성공");
+               System.out.println(session.getAttribute("LoginMember"));
                json.put("login", "main");
                return new ResponseEntity<>(json, HttpStatus.OK);
             // 로그인 실패시 
