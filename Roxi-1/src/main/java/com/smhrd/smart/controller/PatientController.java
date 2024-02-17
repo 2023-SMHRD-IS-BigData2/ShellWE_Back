@@ -233,7 +233,8 @@ public class PatientController {
 			hash.put("platelets", plist.get(i).getPlatelets());
 			list.add(hash);
 		}
-		redirect.addFlashAttribute("list", list);
+		redirect.addFlashAttribute("list", list);//환자 데이터 리스트 담기
+		redirect.addFlashAttribute("patinum", patinum); // 환자 번호 담기
 		return "redirect:/flask";
 	}
 
@@ -927,6 +928,11 @@ public class PatientController {
 		patient.setPhysician(physician);
 		repo.save(patient);
 	}
-	
+	public String setSepsisScore(int sepsisscore, int patinum) {
+		Smart_Patient patient = repo.findById(patinum).get();
+		patient.setSepsisscore(sepsisscore); //값 업데이트
+		repo.save(patient);
+		return "success";
+	}
 	
 }
