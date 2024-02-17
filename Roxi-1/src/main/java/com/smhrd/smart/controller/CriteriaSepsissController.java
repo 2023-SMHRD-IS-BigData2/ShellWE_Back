@@ -6,12 +6,14 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.smhrd.smart.entity.Smart_sepsiss;
 import com.smhrd.smart.repository.CriteriaSepsissRepository;
 
+@Controller
 public class CriteriaSepsissController {
 	
 	@Autowired
@@ -25,12 +27,17 @@ public class CriteriaSepsissController {
 		return new ResponseEntity<>(responseJson,HttpStatus.OK);
 	}
 	public String sepsissscoer(int sepsissscoer) {
+		String sepsissString ="";
 		List<Smart_sepsiss> sepsiss = csrepo.findAll();
 		if(sepsiss.get(0).getSepsiss() >= sepsissscoer) {
-			return "Screening";
+			sepsissString="Screening";
+			System.out.println(sepsissString);
+			return sepsissString;
 		}
 		else {
-			return "Observing";
+			sepsissString="Observing";
+			System.out.println(sepsissString);
+			return sepsissString;
 		}
 	}
 }
