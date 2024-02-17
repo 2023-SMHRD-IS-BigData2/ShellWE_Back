@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.smhrd.smart.controller.CriteriaSepsissController;
 import com.smhrd.smart.controller.PatientController;
 import com.smhrd.smart.controller.VitalController;
 
@@ -34,6 +35,9 @@ public class flask {
 	
 	@Autowired
 	private VitalController vitalcontroller;
+	
+	@Autowired
+	private CriteriaSepsissController criteriaseosiss;
 	
 	@RequestMapping("/flask")
 	public String flask(Model model) throws IOException {
@@ -100,6 +104,7 @@ public class flask {
             String responseBody = responseEntity.getBody();
             
             String result = vitalcontroller.setVitalDate(Integer.parseInt(responseBody),vitalnum); //환자 패혈증 수치 업데이트 메소드
+            criteriaseosiss.sepsissscoer(Integer.parseInt(responseBody));
             System.out.println("Response from Flask server: " + responseBody);
             System.out.println("result : "+result);
         } else {
