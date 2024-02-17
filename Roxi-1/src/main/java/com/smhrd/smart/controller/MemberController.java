@@ -214,6 +214,7 @@ public class MemberController {
 				return new ResponseEntity<>(responseJson, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 			else{
+				repo.deleteById(membernum);
 				responseJson.put("delete", "삭제 성공");
 			return new ResponseEntity<>(responseJson, HttpStatus.OK);			
 			}
