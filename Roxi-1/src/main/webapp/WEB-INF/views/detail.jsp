@@ -126,6 +126,7 @@ Smart_Patient p = (Smart_Patient)request.getAttribute("patient");
 		<th>platelets</th>
 		<th>예측치</th>
 		<th>입력날짜</th>
+		<th>패혈증 계산</th>
 	</tr>
 	<c:forEach var="list" items="${list}">
 	<tr>
@@ -165,6 +166,7 @@ Smart_Patient p = (Smart_Patient)request.getAttribute("patient");
 	    <td>${list.platelets}</td>
 	    <td>${list.sepsisscore}</td>
 	    <td>${list.sepdate}</td>
+	    <td><a href="/boot/getScore?patinum=${patient.patinum}&vitalnum=${list.vitalnum}">예측</a></td>
 	</tr>
 </c:forEach>
 </table>
