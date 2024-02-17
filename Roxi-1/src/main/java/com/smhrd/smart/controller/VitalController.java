@@ -3,6 +3,7 @@ package com.smhrd.smart.controller;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -31,5 +32,12 @@ public class VitalController {
 		System.out.println("환자" +patinum+ "시작일"+startDate+"끝날짜"+endDate+"hr정보"+dateVital.get(1).getHr());
 		model.addAttribute(dateVital);
 		return "/detail?patinum="+patinum;		
+	}
+	
+	public String setVitalDate(int sepsisscore, int vitalnum) {
+		smart_vital1 vital = vrepo.findByVitalnum(vitalnum);
+		vital.setSepsisscore((float) sepsisscore);
+		vrepo.save(vital);
+		return "success";
 	}
 }

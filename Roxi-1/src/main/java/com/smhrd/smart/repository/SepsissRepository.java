@@ -21,5 +21,5 @@ public interface SepsissRepository extends JpaRepository<smart_vital1, Integer> 
 	List<smart_vital1> findBypatientnumAndSepdate(@Param("patientnum") int patientnum, @Param("date") Date date);
 
 	public void deleteBypatientnum(int parseInt);
-
+	List<smart_vital1> findByPatientnumAndVitalnumLessThan(Integer patientnum, Integer vitalnum);
 }

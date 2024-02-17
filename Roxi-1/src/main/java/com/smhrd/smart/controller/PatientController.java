@@ -928,6 +928,7 @@ public class PatientController {
 		patient.setPhysician(physician);
 		repo.save(patient);
 	}
+	
 	public String setSepsisScore(int sepsisscore, int patinum) {
 		Smart_Patient patient = repo.findById(patinum).get();
 		patient.setSepsisscore(sepsisscore); //값 업데이트
@@ -935,4 +936,56 @@ public class PatientController {
 		return "success";
 	}
 	
+	@RequestMapping("getScore")
+	public String getScore(RedirectAttributes redirect, String patinum, String vitalnum) {
+		List<HashMap<String, Object>> list = new ArrayList<>();
+		List<smart_vital1> plist = srepo.findByPatientnumAndVitalnumLessThan(Integer.parseInt(patinum), Integer.parseInt(vitalnum));
+		System.out.println("getScore 페이지입니다");
+		System.out.println(plist);
+		Smart_Patient patient = repo.findById(Integer.parseInt(patinum)).get();
+		for (int i = 0; i < plist.size(); i++) {
+			HashMap<String, Object> hash = new HashMap<>();
+			hash.put("age", patient.getAge());
+			hash.put("gender", patient.getGender());
+			hash.put("o2sat", plist.get(i).getO2sat());
+			hash.put("temp", plist.get(i).getTemp());
+			hash.put("sbp", plist.get(i).getSbp());
+			hash.put("dbp", plist.get(i).getDbp());
+			hash.put("resp", plist.get(i).getResp());
+			hash.put("hr", plist.get(i).getHr());
+			hash.put("map", plist.get(i).getMap());
+			hash.put("etco2", plist.get(i).getEtco2());
+			hash.put("baseexcess", plist.get(i).getBaseexcess());
+			hash.put("hco3", plist.get(i).getHco3());
+			hash.put("fio2", plist.get(i).getFio2());
+			hash.put("ph", plist.get(i).getPh());
+			hash.put("paco2", plist.get(i).getPaco2());
+			hash.put("sao2", plist.get(i).getSao2());
+			hash.put("ast", plist.get(i).getAst());
+			hash.put("bun", plist.get(i).getBun());
+			hash.put("alkalinephos", plist.get(i).getAlkalinephos());
+			hash.put("calcium", plist.get(i).getCalcium());
+			hash.put("chloride", plist.get(i).getChloride());
+			hash.put("creatinine", plist.get(i).getCreatinine());
+			hash.put("bilirubin_direct", plist.get(i).getBilirubindirect());
+			hash.put("glucose", plist.get(i).getGlucose());
+			hash.put("lactate", plist.get(i).getLactate());
+			hash.put("magnesium", plist.get(i).getMagnesium());
+			hash.put("phosphate", plist.get(i).getPhosphate());
+			hash.put("potassium", plist.get(i).getPotassium());
+			hash.put("biliubin_total", plist.get(i).getBilirubintotal());
+			hash.put("troponini", plist.get(i).getTroponini());
+			hash.put("hct", plist.get(i).getHct());
+			hash.put("hgb", plist.get(i).getHgb());
+			hash.put("ptt", plist.get(i).getPtt());
+			hash.put("wbc", plist.get(i).getWbc());
+			hash.put("fibrinogen", plist.get(i).getFibrinogen());
+			hash.put("platelets", plist.get(i).getPlatelets());
+			list.add(hash);
+		}
+		redirect.addFlashAttribute("list", list);//환자 데이터 리스트 담기
+		redirect.addFlashAttribute("patinum", patinum); // 환자 번호 담기
+		redirect.addFlashAttribute("vitalnum", vitalnum);//바이탈 넘버 번호 담기
+		return "redirect:/flask_1";
+	}
 }
