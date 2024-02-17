@@ -158,6 +158,7 @@ public class MemberController {
 				memberJson.put("id", member.getId());
 				memberJson.put("name", member.getName());
 				memberJson.put("memberrank", member.getMemberrank());
+				memberJson.put("tell", member.getTell());
 				memberJson.put("date", member.getDate());
 				memberJson.put("loginTime", member.getLogintime());
 				memberJson.put("logoutTime", member.getLogouttime());
