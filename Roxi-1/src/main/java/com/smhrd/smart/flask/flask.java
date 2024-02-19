@@ -23,6 +23,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.smhrd.smart.controller.CriteriaSepsissController;
 import com.smhrd.smart.controller.PatientController;
 import com.smhrd.smart.controller.VitalController;
+import com.smhrd.smart.entity.Smart_Patient;
+import com.smhrd.smart.repository.PatientRepository;
+import com.smhrd.smart.repository.VitalRepository;
 
 @Controller
 public class flask {
@@ -38,6 +41,9 @@ public class flask {
 	
 	@Autowired
 	private CriteriaSepsissController criteriaseosiss;
+	
+	@Autowired
+	private PatientRepository patientrepository;
 	
 	@RequestMapping("/flask")
 	public String flask(Model model) throws IOException {
@@ -83,6 +89,7 @@ public class flask {
 		List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) model.getAttribute("list"); //환자 생체 데이터 가져오기
 		int patinum = Integer.parseInt((String) model.getAttribute("patinum")); // 환자번호
 		int vitalnum = Integer.parseInt((String) model.getAttribute("vitalnum"));
+		Smart_Patient smartpatient = null;
 		if (list!=null) {
 			for (int i = 0; i < list.size(); i++) {
 				System.out.println(list.get(i));
@@ -104,7 +111,9 @@ public class flask {
             String responseBody = responseEntity.getBody();
             
             String result = vitalcontroller.setVitalDate(Integer.parseInt(responseBody),vitalnum); //환자 패혈증 수치 업데이트 메소드
-            criteriaseosiss.sepsissscoer(Integer.parseInt(responseBody));
+            smartpatient.setPatinum(patinum); // repository로 save할때 pk를 찾아가도록 환자번호 저장
+            smartpatient.setSepsisslevel(criteriaseosiss.sepsissscoer(Integer.parseInt(responseBody))); // db에 저장할 sepsisslevel확인후 저장
+            patientrepository.save(smartpatient); // jpa를 이용하여 db에 업데이트 
             System.out.println("Response from Flask server: " + responseBody);
             System.out.println("result : "+result);
         } else {
