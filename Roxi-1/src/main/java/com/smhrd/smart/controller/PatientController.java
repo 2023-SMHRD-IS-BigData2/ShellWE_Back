@@ -988,7 +988,8 @@ public class PatientController {
 			hash.put("platelets", plist.get(i).getPlatelets());
 			list.add(hash);
 		}
-		fsk.flask_1(list, patinum, vitalnum);//모델 연동 함수 호출
+		String result = fsk.flask_1(list, patinum, vitalnum);//모델 연동 함수 호출
+		setSepsisScore(Integer.parseInt(result), patinum);
 	}
 
 	// 전체 환자 대표 sepsisscore 점수 변경

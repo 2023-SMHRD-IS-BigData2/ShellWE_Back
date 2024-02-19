@@ -44,6 +44,7 @@ public class flask {
 	@Autowired
 	private PatientRepository patientrepository;
 	
+	
 	//환자 대표 sepsisscore 예측 함수
 	public String flask(List<HashMap<String, Object>> list, int patinum) throws IOException {
         HttpHeaders headers = new HttpHeaders();
@@ -66,7 +67,7 @@ public class flask {
 	}
 	
 	//세부 바이탈 예측 함수
-	public void flask_1(List<HashMap<String, Object>> list, int patinum, int vitalnum) throws IOException {
+	public String flask_1(List<HashMap<String, Object>> list, int patinum, int vitalnum) throws IOException {
 		if (list!=null) {
 			for (int i = 0; i < list.size(); i++) {
 				System.out.println(list.get(i));
@@ -74,7 +75,7 @@ public class flask {
 		} else {
 			System.out.println("list가 비어있습니다.");
 		}
-		Smart_Patient smartpatient = null;
+		Smart_Patient smartpatient = patientrepository.findById(patinum).get();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 		
@@ -88,6 +89,7 @@ public class flask {
             String responseBody = responseEntity.getBody();
             
             String result = vitalcontroller.setVitalDate(Integer.parseInt(responseBody),vitalnum); //환자 패혈증 수치 업데이트 메소드
+            System.out.println(patinum);
             smartpatient.setPatinum(patinum); // repository로 save할때 pk를 찾아가도록 환자번호 저장
             smartpatient.setSepsisslevel(criteriaseosiss.sepsissscoer(Integer.parseInt(responseBody))); // db에 저장할 sepsisslevel확인후 저장
             patientrepository.save(smartpatient); // jpa를 이용하여 db에 업데이트 하도록 수정
@@ -96,6 +98,7 @@ public class flask {
         } else {
             System.err.println("Failed to send data. Status code: " + statusCode);
         }
+        return responseEntity.getBody();
         
 	}
 	
