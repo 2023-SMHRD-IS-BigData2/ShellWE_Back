@@ -203,7 +203,7 @@ public class MemberController {
 	}
 
 	// 의료진 정보를 삭제하는 메소드
-	@DeleteMapping("/deleteMember")
+	@RequestMapping("/deleteMember")
 	public ResponseEntity<JSONObject> deleteMember(@RequestParam("membernum") int membernum) {
 		JSONObject responseJson = new JSONObject();
 		String admin = "admin";
