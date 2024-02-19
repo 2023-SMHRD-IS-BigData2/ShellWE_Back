@@ -291,6 +291,7 @@ public class PatientController {
 			hash.put("fibrinogen", plist.get(i).getFibrinogen());
 			hash.put("platelets", plist.get(i).getPlatelets());
 			hash.put("time", plist.get(i).getSepdate());
+			hash.put("sepsisscore", plist.get(i).getSepsisscore());
 			list.add(hash);// 저장된 hashmap을 list에 저장
 		}
 		dataList.add(list);// JSONArray 객체에 list 저장
