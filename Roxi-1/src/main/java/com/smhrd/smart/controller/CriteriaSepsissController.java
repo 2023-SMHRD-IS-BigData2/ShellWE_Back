@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,8 +21,12 @@ public class CriteriaSepsissController {
 	private CriteriaSepsissRepository csrepo;
 	
 	@RequestMapping("/sepsissscoer")
-	public ResponseEntity<JSONObject> CriteriaSepsiss(@RequestParam("sepsissscoer") Smart_sepsiss sepsiss) {
+	public ResponseEntity<JSONObject> CriteriaSepsiss(@RequestBody Smart_sepsiss sepsiss) {
 		JSONObject responseJson = new JSONObject();
+		Smart_sepsiss smartsepsiss = csrepo.findById(sepsiss.getSepsiss()).orElse(null); // .orElse(null) 해당 값을 못찾으면 null값으로 지정함
+		if(smartsepsiss != null) {
+			responseJson.put("change", smartsepsiss.getSepsiss());
+		}
 		responseJson.put("change", "위험수치가 변경되었습니다");
 		csrepo.save(sepsiss);
 		return new ResponseEntity<>(responseJson,HttpStatus.OK);
