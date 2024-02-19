@@ -87,7 +87,7 @@ public class flask {
 		Smart_Patient smartpatient = null;
         if (statusCode == HttpStatus.OK) {
             String responseBody = responseEntity.getBody();
-           
+          
             String result = vitalcontroller.setVitalDate(Integer.parseInt(responseBody),vitalnum); //환자 패혈증 수치 업데이트 메소드
             smartpatient.setPatinum(patinum); // repository로 save할때 pk를 찾아가도록 환자번호 저장
             smartpatient.setSepsisslevel(criteriaseosiss.sepsissscoer(Integer.parseInt(responseBody))); // db에 저장할 sepsisslevel확인후 저장
