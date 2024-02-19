@@ -176,19 +176,19 @@ public class MemberController {
 	}
 
 	@PutMapping("/updateMember")
-	public ResponseEntity<JSONObject> updateMember(@RequestBody Smart_Member updatedMember, HttpSession session) {
+	public ResponseEntity<JSONObject> updateMember(@RequestBody Smart_Member updatedMember) {
 		JSONObject responseJson = new JSONObject();
 
 		try {
 			// 세션에서 현재 로그인된 멤버 정보 가져오기
-			Smart_Member loginMember = (Smart_Member) session.getAttribute("LoginMember");
+			Smart_Member loginMember = updatedMember;
 
 			// 업데이트된 정보로 로그인된 멤버 정보 업데이트
-			loginMember.setName(updatedMember.getName());
-			loginMember.setPw(updatedMember.getPw());
-			loginMember.setMemberrank(updatedMember.getMemberrank());
-			loginMember.setTell(updatedMember.getTell());
-
+//			loginMember.setName(updatedMember.getName());
+//			loginMember.setPw(updatedMember.getPw());
+//			loginMember.setMemberrank(updatedMember.getMemberrank());
+//			loginMember.setTell(updatedMember.getTell());
+			
 			// 업데이트된 정보를 저장
 			repo.save(loginMember);
 
