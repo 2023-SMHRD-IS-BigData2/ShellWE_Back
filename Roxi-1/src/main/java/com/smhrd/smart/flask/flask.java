@@ -30,8 +30,8 @@ public class flask {
 	final String POST = "POST";
 	final String USER_AGENT = "Mozilla/5.0";
 	
-	@Autowired
-	private PatientController patientcontroller;
+//	@Autowired
+//	private PatientController patientcontroller;
 	
 	@Autowired
 	private VitalController vitalcontroller;
@@ -39,50 +39,29 @@ public class flask {
 	@Autowired
 	private CriteriaSepsissController criteriaseosiss;
 	
-	@RequestMapping("/flask")
-	public String flask(Model model) throws IOException {
-		
-		
-		
-		List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) model.getAttribute("list"); //환자 생체 데이터 가져오기
-		int patinum = Integer.parseInt((String) model.getAttribute("patinum")); // 환자번호
-		System.out.println(patinum);
-		if (list!=null) {
-			for (int i = 0; i < list.size(); i++) {
-				System.out.println(list.get(i));
-			}
-		} else {
-			System.out.println("list가 비어있습니다.");
-		}
-		
+	//환자 대표 sepsisscore 예측 함수
+	public String flask(List<HashMap<String, Object>> list, int patinum) throws IOException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 		
         HttpEntity<List<HashMap<String, Object>>> requestEntity = new HttpEntity<>(list, headers);
 		
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> responseEntity = restTemplate.exchange(URL, HttpMethod.POST, requestEntity, String.class);
+        ResponseEntity<String> responseEntity = restTemplate.exchange(URL, HttpMethod.POST, requestEntity, String.class);//flask 연동 메소드 호출
         
         HttpStatus statusCode = responseEntity.getStatusCode();
         if (statusCode == HttpStatus.OK) {
             String responseBody = responseEntity.getBody();
-            
-            String result = patientcontroller.setSepsisScore(Integer.parseInt(responseBody), patinum); //환자 패혈증 수치 업데이트 메소드
             System.out.println("Response from Flask server: " + responseBody);
-            System.out.println(result);
+           
         } else {
             System.err.println("Failed to send data. Status code: " + statusCode);
         }
-        
-		return "redirect:/";
+        return responseEntity.getBody();//예측 값 리턴
 	}
 	
-	@RequestMapping("/flask_1")
-	public String flask_1(Model model) throws IOException {
-		
-		List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) model.getAttribute("list"); //환자 생체 데이터 가져오기
-		int patinum = Integer.parseInt((String) model.getAttribute("patinum")); // 환자번호
-		int vitalnum = Integer.parseInt((String) model.getAttribute("vitalnum"));
+	//세부 바이탈 예측 함수
+	public void flask_1(List<HashMap<String, Object>> list, int patinum, int vitalnum) throws IOException {
 		if (list!=null) {
 			for (int i = 0; i < list.size(); i++) {
 				System.out.println(list.get(i));
@@ -111,6 +90,7 @@ public class flask {
             System.err.println("Failed to send data. Status code: " + statusCode);
         }
         
-		return "redirect:/";
 	}
+	
+	
 }

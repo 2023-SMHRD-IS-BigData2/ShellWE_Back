@@ -11,4 +11,5 @@ import com.smhrd.smart.entity.smart_vital1;
 public interface VitalRepository extends JpaRepository<smart_vital1, Long>{
 	List<smart_vital1> findByPatientnumAndSepdateBetween(int patientnum,LocalDate startDate, LocalDate endDate);
 	smart_vital1 findByVitalnum(int vitalnum);
+	List<smart_vital1> findByPatientnum(int patientnum);
 }

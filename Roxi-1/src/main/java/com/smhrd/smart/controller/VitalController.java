@@ -40,4 +40,9 @@ public class VitalController {
 		vrepo.save(vital);
 		return "success";
 	}
+	
+	public List<smart_vital1> patientAllVital(int patinum){
+		List<smart_vital1> list = vrepo.findByPatientnum(patinum);
+		return list;
+	}
 }
