@@ -30,12 +30,12 @@ public class CriteriaSepsissController {
 		String sepsissString ="";
 		List<Smart_sepsiss> sepsiss = csrepo.findAll();
 		if(sepsiss.get(0).getSepsiss() >= sepsissscoer) {
-			sepsissString="Screening";
+			sepsissString="None";
 			System.out.println(sepsissString);
 			return sepsissString;
 		}
 		else {
-			sepsissString="Observing";
+			sepsissString="Screening";
 			System.out.println(sepsissString);
 			return sepsissString;
 		}
