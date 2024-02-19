@@ -1,5 +1,6 @@
 package com.smhrd.smart.controller;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -25,9 +26,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.smhrd.smart.entity.Smart_Patient;
 import com.smhrd.smart.entity.Smart_comment;
 import com.smhrd.smart.entity.smart_vital1;
+import com.smhrd.smart.flask.flask;
 import com.smhrd.smart.repository.CommentRepository;
 import com.smhrd.smart.repository.PatientRepository;
 import com.smhrd.smart.repository.SepsissRepository;
+import com.smhrd.smart.repository.VitalRepository;
 
 import aj.org.objectweb.asm.Type;
 
@@ -44,6 +47,12 @@ public class PatientController {
 
 	@Autowired
 	private CommentRepository crepo;
+	
+	@Autowired
+	private VitalRepository vrepo;
+	
+	@Autowired
+	private flask fsk;
 
 	@RequestMapping("/")
 	public String Main(Model model) {
@@ -187,14 +196,13 @@ public class PatientController {
 	}
 
 	// flask 서버에 값 넘기기
-	@RequestMapping("/SendAllData")
-	public String SendAllData(RedirectAttributes redirect, String patinum) {
-
-		List<HashMap<String, Object>> list = new ArrayList<>();
-		List<smart_vital1> plist = srepo.findBypatientnum(Integer.parseInt(patinum));
-		Smart_Patient patient = repo.findById(Integer.parseInt(patinum)).get();
-		for (int i = 0; i < plist.size(); i++) {
-			HashMap<String, Object> hash = new HashMap<>();
+	// 환자 대표 Sepsisscore 값 설정 함수
+	public void SendAllData(int patinum) throws NumberFormatException, IOException {
+		List<HashMap<String, Object>> list = new ArrayList<>(); //모델에 넘겨줄 리스트 생성
+		List<smart_vital1> plist = srepo.findBypatientnum(patinum);//해당 환자의 모든 vital 값 리스트 가져오기
+		Smart_Patient patient = repo.findById(patinum).get(); // 환자 age, gender 가져오기 위한 객체 생성
+		for (int i = 0; i < plist.size(); i++) {// 모델에 넘겨줄 리스트에 값 저장하는 반복문
+			HashMap<String, Object> hash = new HashMap<>(); // list 내부에 hash 형태로 저장
 			hash.put("age", patient.getAge());
 			hash.put("gender", patient.getGender());
 			hash.put("o2sat", plist.get(i).getO2sat());
@@ -231,11 +239,10 @@ public class PatientController {
 			hash.put("wbc", plist.get(i).getWbc());
 			hash.put("fibrinogen", plist.get(i).getFibrinogen());
 			hash.put("platelets", plist.get(i).getPlatelets());
-			list.add(hash);
+			list.add(hash); //해쉬에 값 저장했으면 list에 하나 추가
 		}
-		redirect.addFlashAttribute("list", list);//환자 데이터 리스트 담기
-		redirect.addFlashAttribute("patinum", patinum); // 환자 번호 담기
-		return "redirect:/flask";
+		String sepscore = fsk.flask(list, patinum); //flask 연동 메소드 호출 후 받아온 값 String 형태로 저장
+		setSepsisScore(Integer.parseInt(sepscore), patinum);  //sepsisscore 저장 하는 함수 호출
 	}
 
 	// JSONArrya 형태로 리턴하는 함수(react와 연동시 사용)
@@ -936,13 +943,11 @@ public class PatientController {
 		return "success";
 	}
 	
-	@RequestMapping("getScore")
-	public String getScore(RedirectAttributes redirect, String patinum, String vitalnum) {
-		List<HashMap<String, Object>> list = new ArrayList<>();
-		List<smart_vital1> plist = srepo.findByPatientnumAndVitalnumLessThan(Integer.parseInt(patinum), Integer.parseInt(vitalnum));
-		System.out.println("getScore 페이지입니다");
-		System.out.println(plist);
-		Smart_Patient patient = repo.findById(Integer.parseInt(patinum)).get();
+	//환자 세부 vital 별 sepsisscore 설정 함수
+	public void getScore(int patinum, int vitalnum) throws IOException {
+		List<HashMap<String, Object>> list = new ArrayList<>();//모델에 넘겨줄 리스트 생성
+		List<smart_vital1> plist = srepo.findByPatientnumAndVitalnumLessThan(patinum, vitalnum);// 해당 환자의 해당 vitalnum 보다 작은 row 에 해당하는 list 받아오기
+		Smart_Patient patient = repo.findById(patinum).get();
 		for (int i = 0; i < plist.size(); i++) {
 			HashMap<String, Object> hash = new HashMap<>();
 			hash.put("age", patient.getAge());
@@ -983,9 +988,31 @@ public class PatientController {
 			hash.put("platelets", plist.get(i).getPlatelets());
 			list.add(hash);
 		}
-		redirect.addFlashAttribute("list", list);//환자 데이터 리스트 담기
-		redirect.addFlashAttribute("patinum", patinum); // 환자 번호 담기
-		redirect.addFlashAttribute("vitalnum", vitalnum);//바이탈 넘버 번호 담기
-		return "redirect:/flask_1";
+		fsk.flask_1(list, patinum, vitalnum);//모델 연동 함수 호출
+	}
+
+	// 전체 환자 대표 sepsisscore 점수 변경
+	@RequestMapping("/setAllSepsisscore")
+	public String setAllSepsisscore() throws NumberFormatException, IOException {
+		List<Smart_Patient> list = repo.findAll(); //전체 환자 리스트 가져오기
+		for(int i=0; i<list.size(); i++) {
+			SendAllData(list.get(i).getPatinum()); //전체 환자 하나씩 SendAllData 함수에 집어넣기
+		}
+		return "redirect:/";
+	}
+	
+	//전체환자 세부 sepsisscore 점수 변경
+	@RequestMapping("/setAllVitalSepsisscore")
+	public String setAllVitalSepsisscore() throws IOException {
+		List<Smart_Patient> list = repo.findAll(); //전체 환자 리스트 가져오기
+		for(int i=0; i<list.size(); i++) { //전체 환자만큼 반복
+			List<smart_vital1> li = vrepo.findByPatientnum(list.get(i).getPatinum()); //매 반복만큼의 환자 하나 당 전체 vital 리스트 가져오기
+			for(int j=1; j<li.size(); j++) {//받아온 vital 만큼 반복
+				int vitalnum = li.get(j).getVitalnum();
+				getScore(list.get(i).getPatinum(), vitalnum);//세부 vital 하나당 sepsisscore 예측 함수 호출
+			}
+		}
+		
+		return "redirect:/";
 	}
 }

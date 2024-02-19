@@ -57,7 +57,10 @@ List<Smart_Patient> Plist = (List<Smart_Patient>)request.getAttribute("list");
 		</select> <input type="submit" value="탐색">
 	</form>
 	<br>
-
+	<a href="setAllSepsisscore">전체환자 패혈증 수치 머신러닝</a>
+	<br>
+	<br>
+	<a href="setAllVitalSepsisscore">전체 환자 모든 패혈증 수치 머신러닝</a>
 	<table border="1">
 		<tr>
 			<th>num</th>
