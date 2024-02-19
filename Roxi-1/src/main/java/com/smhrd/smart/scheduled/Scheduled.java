@@ -34,15 +34,15 @@ public class Scheduled {
 	@Autowired
 	private flask flsk;
 	
-	@org.springframework.scheduling.annotation.Scheduled(fixedRate = 600000)
-	public void fixedRate() throws NumberFormatException, IOException {
-		System.out.println("600초마다 실행됨");
-		List<Smart_Patient> list = repo.findAll();
-		for(int i=0; i<list.size();i++) {
-			setvital(list.get(i).getPatinum());
-		}
-		
-	}
+//	@org.springframework.scheduling.annotation.Scheduled(fixedRate = 600000)
+//	public void fixedRate() throws NumberFormatException, IOException {
+//		System.out.println("600초마다 실행됨");
+//		List<Smart_Patient> list = repo.findAll();
+//		for(int i=0; i<list.size();i++) {
+//			setvital(list.get(i).getPatinum());
+//		}
+//		
+//	}
 	
 	public void setvital(int patinum) throws NumberFormatException, IOException {
 		System.out.println(patinum+"번 환자 데이터 새롭게 입력되는 중");
