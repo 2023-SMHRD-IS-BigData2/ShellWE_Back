@@ -28,6 +28,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.smhrd.smart.entity.Smart_Member;
+import com.smhrd.smart.entity.Smart_sepsiss;
+import com.smhrd.smart.repository.CriteriaSepsissRepository;
 import com.smhrd.smart.repository.MemberRepository;
 
 @Controller
@@ -37,6 +39,9 @@ public class MemberController {
 
 	@Autowired
 	private MemberRepository repo;
+	
+	@Autowired
+	private CriteriaSepsissRepository crepo;
 
 	// 로그인 페이지
 	@GetMapping("/login")
@@ -147,7 +152,7 @@ public class MemberController {
 	@RequestMapping("/admin")
 	public ResponseEntity<JSONObject> memberList() {
 		JSONObject responseJson = new JSONObject();
-
+		List<Smart_sepsiss> sepsiss = crepo.findAll();
 		try {
 			// 모든 의료진의 정보를 불러와 JSONArray에 담기
 			List<Smart_Member> memberList = repo.findAll();
@@ -165,12 +170,14 @@ public class MemberController {
 
 				memberArray.add(memberJson);
 			}
-
 			responseJson.put("members", memberArray);
+			responseJson.put("sepsiss", sepsiss.get(0));
 			return new ResponseEntity<>(responseJson, HttpStatus.OK);
+			
 		} catch (Exception e) {
 			// 에러 발생 시
 			responseJson.put("error", "Failed to retrieve member list");
+			
 			return new ResponseEntity<>(responseJson, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
