@@ -27,11 +27,10 @@ public class CriteriaSepsissController {
 	}
 	
 	@RequestMapping("/smartsepsiss") // sepsiss 정보를 전달하는 메소드
-	public ResponseEntity<JSONObject> sepsiss(@RequestBody Smart_sepsiss sepsiss) {
+	public ResponseEntity<JSONObject> sepsiss() {
 	    JSONObject responseJson = new JSONObject();
-
 	    try {
-	        Smart_sepsiss smartsepsiss = csrepo.findById(sepsiss.getSepsiss()).orElse(null);
+	        Smart_sepsiss smartsepsiss = (Smart_sepsiss) csrepo.findAll();
 	        
 	        if (smartsepsiss != null) {
 	            responseJson.put("smartsepsiss", smartsepsiss);
