@@ -946,7 +946,7 @@ public class PatientController {
 	}
 	
 	//환자 세부 vital 별 sepsisscore 설정 함수
-	public void getScore(int patinum, int vitalnum) throws IOException {
+	public int getScore(int patinum, int vitalnum) throws IOException {
 		List<HashMap<String, Object>> list = new ArrayList<>();//모델에 넘겨줄 리스트 생성
 		List<smart_vital1> plist = srepo.findByPatientnumAndVitalnumLessThan(patinum, vitalnum);// 해당 환자의 해당 vitalnum 보다 작은 row 에 해당하는 list 받아오기
 		Smart_Patient patient = repo.findById(patinum).get();
@@ -990,7 +990,8 @@ public class PatientController {
 			hash.put("platelets", plist.get(i).getPlatelets());
 			list.add(hash);
 		}
-		String result = fsk.flask_1(list, patinum, vitalnum);//모델 연동 함수 호출
+		int result = fsk.flask_1(list, patinum, vitalnum);//모델 연동 함수 호출
+		return result;
 	}
 
 	// 전체 환자 대표 sepsisscore 점수 변경

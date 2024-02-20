@@ -35,19 +35,21 @@ public class Scheduled {
 	private flask flsk;
 	
 //	@org.springframework.scheduling.annotation.Scheduled(fixedRate = 30000)
-//	public void fixedRate() throws NumberFormatException, IOException {
-//		System.out.println("30초마다 실행됨");
-//		List<Smart_Patient> list = repo.findAll();
-//		for(int i=0; i<list.size();i++) {
-//			System.out.println("patinum : "+list.get(i).getPatinum());
-//			setvital(list.get(i).getPatinum());
-//		}
-//		
-//	}
+	public int fixedRate() throws NumberFormatException, IOException {
+		List<Smart_Patient> list = repo.findAll();
+		int cnt = 0;
+		for(int i=0; i<list.size();i++) {
+			System.out.println("patinum : "+list.get(i).getPatinum());
+			int result = setvital(list.get(i).getPatinum());
+			cnt+=result;
+		}
+		System.out.println("발병 환자 : "+ cnt);
+		return cnt;
+	}
 	
 	//각 컬럼별로 랜덤 값 or null 값 저장되도록 설정
 	//null 값 들어갈 확률 조정 가능
-	public void setvital(int patinum) throws NumberFormatException, IOException {
+	public int setvital(int patinum) throws NumberFormatException, IOException {
 		System.out.println(patinum+"번 환자 데이터 새롭게 입력되는 중");
 		smart_vital1 big = vrepo.findFirstByOrderByVitalnumDesc();
 		int lastIndex = big.getVitalnum();
@@ -128,7 +130,8 @@ public class Scheduled {
         String formattedTime = currentTime.format(formatter);
         vital.setSepdate(formattedTime);
         vrepo.save(vital);
-        patientcontroller.getScore(patinum, lastIndex);
+        int result = patientcontroller.getScore(patinum, lastIndex);
+        return result;
         
 	}
     private static Float randomNullableFloat(float min, float max, int nullProbability) {

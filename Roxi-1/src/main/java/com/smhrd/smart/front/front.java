@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import com.smhrd.smart.controller.CommentController;
@@ -20,6 +21,9 @@ public class front {
 	
 	@Autowired
 	private CommentController commentcontroller;
+	
+	@Autowired
+	private Scheduled scheduled;
     
 	//환자 번호에 해당하는 생체 데이터 JSONArray 형태로 출력
     @RequestMapping("/getList")// 만약 url이 http://localhost:8088/boot/getList 요청이 들어왔을 시 실행
@@ -85,6 +89,14 @@ public class front {
     @RequestMapping("/updatePhysician")
     public void update(String patinum, String physician) {
     	patientcontroller.updatePhysician(Integer.parseInt(patinum), physician);
+    }
+    
+    @RequestMapping("/getHourSepsis")
+    public JSONObject getHourSepsis() {
+    	JSONObject json = new JSONObject();
+    	int result = (int) scheduled.fixedRate();
+    	json.put("result", result);
+    	return json;
     }
 
 }
