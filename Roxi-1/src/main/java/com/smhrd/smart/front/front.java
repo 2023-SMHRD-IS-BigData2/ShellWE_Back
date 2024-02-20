@@ -1,14 +1,15 @@
 package com.smhrd.smart.front;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
-
+import com.smhrd.smart.scheduled.Scheduled;
 import com.smhrd.smart.controller.CommentController;
 import com.smhrd.smart.controller.PatientController;
 
@@ -92,9 +93,9 @@ public class front {
     }
     
     @RequestMapping("/getHourSepsis")
-    public JSONObject getHourSepsis() {
+    public JSONObject getHourSepsis() throws NumberFormatException, IOException {
     	JSONObject json = new JSONObject();
-    	int result = (int) scheduled.fixedRate();
+    	int result = scheduled.fixedRate();
     	json.put("result", result);
     	return json;
     }
