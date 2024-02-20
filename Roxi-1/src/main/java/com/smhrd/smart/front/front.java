@@ -1,6 +1,7 @@
 package com.smhrd.smart.front;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import com.smhrd.smart.scheduled.Scheduled;
 import com.smhrd.smart.controller.CommentController;
 import com.smhrd.smart.controller.PatientController;
+import com.smhrd.smart.entity.Smart_sepsiss;
+import com.smhrd.smart.repository.CriteriaSepsissRepository;
 
 @RestController //리액트로 데이터만 전달하는 컨트롤러 어노테이션
 @CrossOrigin("http://localhost:3000")//해당 url로 요청이 들어왔을 시 작동
@@ -25,6 +28,9 @@ public class front {
 	
 	@Autowired
 	private Scheduled scheduled;
+	
+	@Autowired
+	private CriteriaSepsissRepository crepo;
     
 	//환자 번호에 해당하는 생체 데이터 JSONArray 형태로 출력
     @RequestMapping("/getList")// 만약 url이 http://localhost:8088/boot/getList 요청이 들어왔을 시 실행
@@ -97,6 +103,14 @@ public class front {
     	JSONObject json = new JSONObject();
     	int result = scheduled.fixedRate();
     	json.put("result", result);
+    	return json;
+    }
+    
+    @RequestMapping("/getSep")
+    public JSONObject getSep() {
+    	JSONObject json = new JSONObject();
+    	List<Smart_sepsiss> list =  crepo.findAll();
+    	json.put("sepscore", list.get(0).getSepsissnum());
     	return json;
     }
 
