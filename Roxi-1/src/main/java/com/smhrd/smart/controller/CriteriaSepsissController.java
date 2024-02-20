@@ -1,6 +1,7 @@
 package com.smhrd.smart.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,14 @@ public class CriteriaSepsissController {
 	@Autowired
 	private CriteriaSepsissRepository csrepo;
 	
-	@RequestMapping("/sepsissscoer") // sepsiss 정보를 업데이트하는 메소드 
-	public String CriteriaSepsiss(@RequestBody Smart_sepsiss sepsiss) {
-		csrepo.save(sepsiss);
-		return ""; 
-	}
+	   @RequestMapping("/sepsissscoer") // sepsiss 정보를 업데이트하는 메소드 
+	   public void CriteriaSepsiss(String sepsiss) {
+	      List<Smart_sepsiss> list = csrepo.findAll();
+	      System.out.println(list);
+	      Smart_sepsiss sep = list.get(0); // 업데이트 전
+	      sep.setSepsissnum(Integer.parseInt(sepsiss));
+	      csrepo.save(sep);
+	   }
 	
 	@RequestMapping("/smartsepsiss") // sepsiss 정보를 전달하는 메소드
 	public ResponseEntity<JSONObject> sepsiss(@RequestBody Smart_sepsiss sepsiss) {
@@ -60,4 +64,6 @@ public class CriteriaSepsissController {
 			return sepsissString;
 		}
 	}
+	
+	
 }
