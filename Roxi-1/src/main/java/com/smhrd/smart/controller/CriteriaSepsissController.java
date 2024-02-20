@@ -20,17 +20,32 @@ public class CriteriaSepsissController {
 	@Autowired
 	private CriteriaSepsissRepository csrepo;
 	
-	@RequestMapping("/sepsissscoer")
-	public ResponseEntity<JSONObject> CriteriaSepsiss(@RequestBody Smart_sepsiss sepsiss) {
-		JSONObject responseJson = new JSONObject();
-		Smart_sepsiss smartsepsiss = csrepo.findById(sepsiss.getSepsiss()).orElse(null); // .orElse(null) 해당 값을 못찾으면 null값으로 지정함
-		if(smartsepsiss != null) {
-			responseJson.put("change", smartsepsiss.getSepsiss());
-		}
-		responseJson.put("change", "위험수치가 변경되었습니다");
+	@RequestMapping("/sepsissscoer") // sepsiss 정보를 업데이트하는 메소드 
+	public String CriteriaSepsiss(@RequestBody Smart_sepsiss sepsiss) {
 		csrepo.save(sepsiss);
-		return new ResponseEntity<>(responseJson,HttpStatus.OK);
+		return ""; 
 	}
+	
+	@RequestMapping("/smartsepsiss") // sepsiss 정보를 전달하는 메소드
+	public ResponseEntity<JSONObject> sepsiss(@RequestBody Smart_sepsiss sepsiss) {
+	    JSONObject responseJson = new JSONObject();
+
+	    try {
+	        Smart_sepsiss smartsepsiss = csrepo.findById(sepsiss.getSepsiss()).orElse(null);
+	        
+	        if (smartsepsiss != null) {
+	            responseJson.put("smartsepsiss", smartsepsiss);
+	            return new ResponseEntity<>(responseJson, HttpStatus.OK);
+	        } else {
+	            responseJson.put("error", "Smart sepsiss not found");
+	            return new ResponseEntity<>(responseJson, HttpStatus.NOT_FOUND);
+	        }
+	    } catch (Exception e) {
+	        responseJson.put("error", "Error while fetching Smart sepsiss");
+	        return new ResponseEntity<>(responseJson, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	}
+	
 	public String sepsissscoer(int sepsissscoer) {
 		String sepsissString ="";
 		List<Smart_sepsiss> sepsiss = csrepo.findAll();
