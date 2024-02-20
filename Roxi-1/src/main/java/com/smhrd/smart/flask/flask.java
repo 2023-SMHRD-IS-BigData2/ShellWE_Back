@@ -68,14 +68,8 @@ public class flask {
 	
 	//세부 바이탈 예측 함수
 	public String flask_1(List<HashMap<String, Object>> list, int patinum, int vitalnum) throws IOException {
-		if (list!=null) {
-			for (int i = 0; i < list.size(); i++) {
-				System.out.println(list.get(i));
-			}
-		} else {
-			System.out.println("list가 비어있습니다.");
-		}
 		Smart_Patient smartpatient = patientrepository.findById(patinum).get();
+		System.out.println("vitalnum : "+vitalnum);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 		
@@ -88,16 +82,18 @@ public class flask {
         if (statusCode == HttpStatus.OK) {
             String responseBody = responseEntity.getBody();
             
-            String result = vitalcontroller.setVitalDate(Integer.parseInt(responseBody),vitalnum); //환자 패혈증 수치 업데이트 메소드
-            System.out.println(patinum);
-            smartpatient.setPatinum(patinum); // repository로 save할때 pk를 찾아가도록 환자번호 저장
+            String result = vitalcontroller.setVitalDate(Integer.parseInt(responseBody),vitalnum+1); //환자 패혈증 수치 업데이트 메소드, 그냥 vitalnum 넣으면 새로 생성된 행이 아니라 이전 vital에 저장됨
+            System.out.println("이름 : "+smartpatient.getName());
+            System.out.println("새로운 패혈증 수치 : "+ responseBody);
             smartpatient.setSepsisslevel(criteriaseosiss.sepsissscoer(Integer.parseInt(responseBody))); // db에 저장할 sepsisslevel확인후 저장
+            smartpatient.setSepsisscore(Integer.parseInt(responseBody));
             patientrepository.save(smartpatient); // jpa를 이용하여 db에 업데이트 하도록 수정
             System.out.println("Response from Flask server: " + responseBody);
             System.out.println("result : "+result);
         } else {
             System.err.println("Failed to send data. Status code: " + statusCode);
         }
+        System.out.println("getBody : "+ responseEntity.getBody());
         return responseEntity.getBody();
         
 	}
