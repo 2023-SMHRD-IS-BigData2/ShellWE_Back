@@ -113,5 +113,14 @@ public class front {
     	json.put("sepscore", list.get(0).getSepsissnum());
     	return json;
     }
+    
+	   @RequestMapping("/sepsissscoer") // sepsiss 정보를 업데이트하는 메소드 
+	   public void CriteriaSepsiss(String sepsiss) {
+	      List<Smart_sepsiss> list = crepo.findAll();
+	      System.out.println(list);
+	      Smart_sepsiss sep = list.get(0); // 업데이트 전
+	      sep.setSepsissnum(Integer.parseInt(sepsiss));
+	      crepo.save(sep);
+	   }
 
 }
