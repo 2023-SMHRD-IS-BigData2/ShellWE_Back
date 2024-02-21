@@ -21,15 +21,6 @@ public class CriteriaSepsissController {
 	@Autowired
 	private CriteriaSepsissRepository csrepo;
 	
-	   @RequestMapping("/sepsissscoer") // sepsiss 정보를 업데이트하는 메소드 
-	   public void CriteriaSepsiss(String sepsiss) {
-	      List<Smart_sepsiss> list = csrepo.findAll();
-	      System.out.println(list);
-	      Smart_sepsiss sep = list.get(0); // 업데이트 전
-	      sep.setSepsissnum(Integer.parseInt(sepsiss));
-	      csrepo.save(sep);
-	   }
-	
 	@RequestMapping("/smartsepsiss") // sepsiss 정보를 전달하는 메소드
 	public ResponseEntity<JSONObject> sepsiss() {
 	    JSONObject responseJson = new JSONObject();
