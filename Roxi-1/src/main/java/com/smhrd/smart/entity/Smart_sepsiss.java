@@ -11,8 +11,8 @@ import lombok.Data;
 public class Smart_sepsiss {
 	// 패혈증 기준치를 나타내는 컬럼
 	@Id
-	private int sepsiss;
-	
-	@Column
 	private int sepsissnum;
+	
+	@Column  
+	private int sepsiss;
 }
