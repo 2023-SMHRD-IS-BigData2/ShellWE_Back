@@ -1,6 +1,7 @@
 package com.smhrd.smart.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,10 @@ public class CriteriaSepsissController {
 	
 	@RequestMapping("/sepsissscoer") // sepsiss 정보를 업데이트하는 메소드 
 	public String CriteriaSepsiss(@RequestBody Smart_sepsiss sepsiss) {
-		csrepo.save(sepsiss);
+		Optional<Smart_sepsiss> optinalSepsiss = csrepo.findById(sepsiss.getSepsiss());
+		Smart_sepsiss updatesepsiss = optinalSepsiss.get();
+		updatesepsiss.setSepsiss(sepsiss.getSepsiss());
+		csrepo.save(updatesepsiss);
 		return ""; 
 	}
 	
