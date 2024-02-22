@@ -28,7 +28,7 @@ public class CriteriaSepsissController {
    public JSONObject getSep() {
       JSONObject json = new JSONObject();
       List<Smart_sepsiss> list = csrepo.findAll();
-      json.put("sepscore", list.get(0).getSepsissnum());
+      json.put("sepscore", list.get(0).getSepsiss());
       return json;
    }
    
@@ -38,7 +38,7 @@ public class CriteriaSepsissController {
       List<Smart_sepsiss> list = csrepo.findAll();
       System.out.println(list);
       Smart_sepsiss sep = list.get(0); // 업데이트 전
-      sep.setSepsissnum(Integer.parseInt(sepsiss));
+      sep.setSepsiss(Integer.parseInt(sepsiss));
       csrepo.save(sep);
       return "";
    }
