@@ -106,7 +106,7 @@ public class front {
     	return json;
     }
     
-    @RequestMapping("/getSep")
+    @RequestMapping("/getSepsis")
     public JSONObject getSep() {
     	JSONObject json = new JSONObject();
     	List<Smart_sepsiss> list =  crepo.findAll();
@@ -114,7 +114,7 @@ public class front {
     	return json;
     }
     
-	   @RequestMapping("/sepsissscoer") // sepsiss 정보를 업데이트하는 메소드 
+	   @RequestMapping("/sepsissscore") // sepsiss 정보를 업데이트하는 메소드 
 	   public void CriteriaSepsiss(String sepsiss) {
 	      List<Smart_sepsiss> list = crepo.findAll();
 	      System.out.println(list);

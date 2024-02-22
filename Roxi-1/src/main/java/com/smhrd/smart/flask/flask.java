@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -91,6 +93,7 @@ public class flask {
             	smartpatient.setSepsisslevel(criteriaseosiss.sepsissscoer(Integer.parseInt(responseBody))); // db에 저장할 sepsisslevel확인후 저장
             	if(!smartpatient.getSepsisslevel().equals(seplevel)) {
             		cnt+=1;
+            		smartpatient.setSepstartdate(""+LocalDateTime.now());
             	}
             }
             smartpatient.setSepsisscore(Integer.parseInt(responseBody)); //환자 테이블에 sepsisscore 저장
