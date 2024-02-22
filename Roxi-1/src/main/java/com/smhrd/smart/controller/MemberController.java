@@ -79,11 +79,13 @@ public class MemberController {
 					session.setAttribute("LoginMember", loginMember);
 					System.out.println("로그인 성공");
 					json.put("login", "main");
+					json.put("userId", loginMember.getId()); // 사용자 ID를 JSON에 추가
 					return new ResponseEntity<>(json, HttpStatus.OK);
 					// 로그인 실패시
 				} else {
 					System.out.println("로그인 실패");
 					json.put("login", "login");
+					
 					return new ResponseEntity<>(json, HttpStatus.OK);
 				}
 			}
