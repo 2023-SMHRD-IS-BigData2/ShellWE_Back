@@ -55,7 +55,7 @@ public class CommentController {
         }else {
         	r.setMembernum(0);
         	r.setMembername("Dr. test");
-        	System.out.println("session is null");
+        	System.out.println("id is null");
         }
 		r.setPatinum(Integer.parseInt(patinum));
 		r.setContents(insertComment);
