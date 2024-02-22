@@ -34,7 +34,7 @@ public class Scheduled {
 	@Autowired
 	private flask flsk;
 	
-//	@org.springframework.scheduling.annotation.Scheduled(fixedRate = 30000)
+	@org.springframework.scheduling.annotation.Scheduled(fixedRate = 360000)
 	public int fixedRate() throws NumberFormatException, IOException {
 		List<Smart_Patient> list = repo.findAll();
 		int cnt = 0;

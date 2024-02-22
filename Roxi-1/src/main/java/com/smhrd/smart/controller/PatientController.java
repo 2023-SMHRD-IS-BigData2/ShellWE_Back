@@ -25,9 +25,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.smhrd.smart.entity.Smart_Patient;
 import com.smhrd.smart.entity.Smart_comment;
+import com.smhrd.smart.entity.Smart_sepsiss;
 import com.smhrd.smart.entity.smart_vital1;
 import com.smhrd.smart.flask.flask;
 import com.smhrd.smart.repository.CommentRepository;
+import com.smhrd.smart.repository.CriteriaSepsissRepository;
 import com.smhrd.smart.repository.PatientRepository;
 import com.smhrd.smart.repository.SepsissRepository;
 import com.smhrd.smart.repository.VitalRepository;
@@ -52,6 +54,9 @@ public class PatientController {
 	private VitalRepository vrepo;
 	
 	@Autowired
+	private CriteriaSepsissRepository csrepo;
+	
+	@Autowired
 	private flask fsk;
 
 	@RequestMapping("/")
@@ -68,6 +73,7 @@ public class PatientController {
 		List<Smart_Patient> list = repo.findAll();
 		List<Smart_Patient> listScreening = repo.findBysepsisslevel("Screening");
 		JSONObject patientList = new JSONObject();
+		List<Smart_sepsiss> li = csrepo.findAll();
 		int cnt = 0;
 		System.out.println(LocalDate.now());
 		for(int i=0; i<listScreening.size(); i++) {
@@ -80,6 +86,7 @@ public class PatientController {
 		patientList.put("Allpatient", list.size());
 		patientList.put("Screening", listScreening.size());
 		patientList.put("todayScreening", cnt);
+		patientList.put("CriteriaSep", li.get(0).getSepsiss());
 		return patientList;
 
 	}
