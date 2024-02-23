@@ -7,10 +7,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.eclipse.jdt.internal.compiler.parser.diagnose.RangeUtil;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -1059,5 +1061,11 @@ public class PatientController {
 		}
 		
 		return "redirect:/";
+	}
+
+	public int getRandom() {
+		Random rd = new Random();
+		int rand = rd.nextInt(10)+1;
+		return rand;
 	}
 }
