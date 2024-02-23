@@ -323,6 +323,7 @@ public class PatientController {
 			System.out.println(list.get(i));
 		}
 		HashMap<String, Boolean> dengercolumn = new HashMap<>();
+		HashMap<String, String> updown = new HashMap<>();
 		Integer v1;
 		Float v2;
 		String column;
@@ -926,7 +927,41 @@ public class PatientController {
 			}
 
 		}
+		updown.put("hr", "60-100");
+		updown.put("o2sat", "95-100");
+		updown.put("temp", "36.1-37.2");
+		updown.put("sbp", "90-120");
+		updown.put("map", "70-100");
+		updown.put("dbp", "60-80");
+		updown.put("resp", "12-20");
+		updown.put("etco2", "35-45");
+		updown.put("baseexcess", "-2-+2");
+		updown.put("hco3", "22-26");
+		updown.put("fio2", "21-100");
+		updown.put("ph", "7.35-7.45");
+		updown.put("paco2", "35-45");
+		updown.put("sao2", "95-100");
+		updown.put("ast", "10-40");
+		updown.put("bun", "7-20");
+		updown.put("alkalinephos", "20-120");
+		updown.put("calcium", "8.5-10.5");
+		updown.put("chloride", "96-106");
+		updown.put("creatinine", "0.6-1.3");
+		updown.put("bilirubin_direct", "0-0.3");
+		updown.put("glucose", "70-100");
+		updown.put("lactate", "0.5-2.2");
+		updown.put("magnesium", "1.7-2.3");
+		updown.put("phosphate", "2.5-4.5");
+		updown.put("pilirubin_total", "0.2-1.2");
+		updown.put("troponinl", "0-0.004");
+		updown.put("hct", "36-53");
+		updown.put("hgb", "13-18");
+		updown.put("ptt", "25-35");
+		updown.put("wbc", "13-20");
+		updown.put("fibrinogen", "220-350");
+		updown.put("platelets", "220-480");
 		dengerlist.put("dengercolumn", dengercolumn);
+		dengerlist.put("minmax", updown);
 		return dengerlist;
 	}
 	
