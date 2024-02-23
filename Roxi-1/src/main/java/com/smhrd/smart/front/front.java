@@ -106,5 +106,13 @@ public class front {
     	return json;
     }
     
+    @RequestMapping("/getRandomInt")
+    public JSONObject getRandomInt() {
+    	JSONObject json = new JSONObject();
+    	int randomInt = patientcontroller.getRandom();
+    	json.put("RandomInt", randomInt);
+    	return json;
+    }
+    
     
 }
